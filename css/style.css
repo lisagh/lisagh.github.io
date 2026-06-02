@@ -1833,6 +1833,26 @@ margin-bottom: 30px;
   text-transform: uppercase;
 }
 
+.uxe-breadcrumb {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.uxe-breadcrumb a {
+  color: var(--uxe-accent);
+  text-decoration: none;
+}
+
+.uxe-breadcrumb a:hover {
+  color: var(--uxe-text);
+  text-decoration: none;
+}
+
+.uxe-breadcrumb span {
+  color: var(--uxe-accent);
+}
+
 .uxe-lede {
   max-width: 760px;
   color: var(--uxe-text);
