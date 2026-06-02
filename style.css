@@ -1,0 +1,36 @@
+html, body {
+  height:100%;
+}
+body {
+  align-items:center;
+}
+#footer {
+  background: #fff;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  padding: 30px 0;
+  color: #333;
+  font-size: 14px;
+}
+.card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.icon {
+	top: 15%;
+    position: relative;
+}
+.card ul{
+	list-style: none;
+}
+.card li{
+	list-style: none;
+}
+.card-title a {
+	color: #000;
+}
+.card img {
+	margin: auto;
+	display: block;
+}
+.card a {
+	padding: 0;
+}

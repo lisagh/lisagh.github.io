@@ -1,0 +1,38 @@
+         #header #logo h1 a, #header #logo h1 a:hover {
+         color:#212529!important;
+         }
+         .nav-menu a{
+         color:#212529!important;
+         }
+          #fourth img:hover {
+          opacity: 1;
+          -webkit-animation: flash 1.5s;
+          animation: flash 1.5s;
+        }
+        @-webkit-keyframes flash {
+          0% {
+            opacity: .4;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+        @keyframes flash {
+          0% {
+            opacity: .4;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+         .card {
+         padding: 0!important;
+         margin:  0;
+         }
+         .case {
+         margin-bottom: 3vh;
+         }
+         .case p {
+          text-align: center;
+          font-size:  1rem;
+         }
