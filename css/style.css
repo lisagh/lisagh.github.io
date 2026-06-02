@@ -1757,13 +1757,43 @@ margin-bottom: 30px;
 }
 
 /* UX Engineer portfolio refresh */
+#header > .container.col-lg-8.col-md-10.col-centered,
+.uxe-hero.container.col-lg-8.col-md-10.col-centered,
+.uxe-section.container.col-lg-8.col-md-10.col-centered,
+.uxe-contact.container.col-lg-8.col-md-10.col-centered {
+  float: none;
+  max-width: 1120px;
+  padding-left: 32px;
+  padding-right: 32px;
+  width: min(100%, 1120px);
+}
+
+#header > .container.col-lg-8.col-md-10.col-centered {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#header .nav-menu {
+  display: flex;
+  gap: 28px;
+}
+
+#header .nav-menu,
+#header .nav-menu * {
+  float: none;
+}
+
+#header .nav-menu > li {
+  margin-left: 0;
+}
+
 .uxe-hero {
-  min-height: 78vh;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: clamp(72px, 8vh, 108px);
+  padding-bottom: clamp(80px, 10vh, 128px);
 }
 
 .uxe-hero h1,
@@ -2232,6 +2262,35 @@ margin-bottom: 30px;
   .uxe-project-visual,
   .uxe-case-visual {
     min-height: 280px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .uxe-hero.container.col-lg-8.col-md-10.col-centered {
+    max-width: 1180px;
+    width: min(100%, 1180px);
+  }
+
+  #header > .container.col-lg-8.col-md-10.col-centered,
+  .uxe-section.container.col-lg-8.col-md-10.col-centered,
+  .uxe-contact.container.col-lg-8.col-md-10.col-centered {
+    max-width: 1180px;
+    width: min(100%, 1180px);
+  }
+}
+
+@media (max-width: 768px) {
+  #header > .container.col-lg-8.col-md-10.col-centered,
+  .uxe-hero.container.col-lg-8.col-md-10.col-centered,
+  .uxe-section.container.col-lg-8.col-md-10.col-centered,
+  .uxe-contact.container.col-lg-8.col-md-10.col-centered {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  .uxe-hero {
+    padding-top: 72px;
+    padding-bottom: 72px;
   }
 }
 
