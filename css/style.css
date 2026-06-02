@@ -1756,16 +1756,26 @@ margin-bottom: 30px;
   color: #1dc8cd;
 }
 
-/* UX Engineer portfolio refresh */
+/* Portfolio refresh */
+:root {
+  --uxe-accent: #E91E63;
+  --uxe-text: #000;
+  --uxe-rule: #efefef;
+  --uxe-shell: 1060px;
+}
+
 #header > .container.col-lg-8.col-md-10.col-centered,
 .uxe-hero.container.col-lg-8.col-md-10.col-centered,
 .uxe-section.container.col-lg-8.col-md-10.col-centered,
-.uxe-contact.container.col-lg-8.col-md-10.col-centered {
+.uxe-about.container.col-lg-8.col-md-10.col-centered,
+.uxe-case.container.col-lg-8.col-md-10.col-centered,
+.uxe-contact.container.col-lg-8.col-md-10.col-centered,
+#footer > .container {
   float: none;
-  max-width: 1120px;
+  max-width: var(--uxe-shell);
   padding-left: 32px;
   padding-right: 32px;
-  width: min(100%, 1120px);
+  width: min(100%, var(--uxe-shell));
 }
 
 #header > .container.col-lg-8.col-md-10.col-centered {
@@ -1799,7 +1809,7 @@ margin-bottom: 30px;
 .uxe-hero h1,
 .uxe-case-hero h1 {
   max-width: 900px;
-  color: #000;
+  color: var(--uxe-text);
   font-family: Montserrat, sans-serif;
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 400;
@@ -1814,7 +1824,7 @@ margin-bottom: 30px;
 }
 
 .uxe-kicker {
-  color: #E91E63;
+  color: var(--uxe-accent);
   font-family: Montserrat, sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
@@ -1825,7 +1835,7 @@ margin-bottom: 30px;
 
 .uxe-lede {
   max-width: 760px;
-  color: #000;
+  color: var(--uxe-text);
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 1.35rem;
   line-height: 1.65;
@@ -1840,19 +1850,23 @@ margin-bottom: 30px;
 }
 
 .uxe-tags span {
-  border: 1px solid #efefef;
+  border: 1px solid var(--uxe-rule);
   border-radius: 999px;
-  color: #000;
+  color: var(--uxe-text);
   font-family: Montserrat, sans-serif;
   font-size: 0.78rem;
   line-height: 1;
   padding: 9px 12px;
 }
 
-.uxe-section,
+.uxe-section {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
 .uxe-about,
 .uxe-case {
-  padding-top: 72px;
+  padding-top: 44px;
   padding-bottom: 72px;
 }
 
@@ -1880,7 +1894,7 @@ margin-bottom: 30px;
 }
 
 .uxe-project-card {
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--uxe-rule);
   color: #000;
   display: block;
   padding: 18px 0 32px;
@@ -1912,7 +1926,7 @@ margin-bottom: 30px;
 .uxe-motion-tile {
   align-items: center;
   background: #fff;
-  border: 1px solid #efefef;
+  border: 1px solid var(--uxe-rule);
   display: flex;
   justify-content: center;
   min-height: 190px;
@@ -1936,7 +1950,7 @@ margin-bottom: 30px;
 }
 
 .uxe-motion-system span:nth-child(2) {
-  background: #E91E63;
+  background: var(--uxe-accent);
   clip-path: polygon(0 0, 0 100%, 100% 50%);
   height: 24px;
   left: 48%;
@@ -1954,7 +1968,7 @@ margin-bottom: 30px;
 
 .uxe-motion-system span:nth-child(3)::after {
   animation: uxeProgress 4s linear infinite;
-  background: #E91E63;
+  background: var(--uxe-accent);
   content: "";
   height: 2px;
   left: 0;
@@ -2014,13 +2028,13 @@ margin-bottom: 30px;
 }
 
 .uxe-chart-svg-bar-accent {
-  fill: #E91E63;
+  fill: var(--uxe-accent);
 }
 
 .uxe-chart-svg-line {
   animation: uxeDrawLine 3.2s ease-in-out infinite;
   fill: none;
-  stroke: #E91E63;
+  stroke: var(--uxe-accent);
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   stroke-linecap: round;
@@ -2031,7 +2045,7 @@ margin-bottom: 30px;
 
 .uxe-chart-svg-point {
   animation: uxePointFade 3.2s ease-in-out infinite;
-  fill: #E91E63;
+  fill: var(--uxe-accent);
 }
 
 @keyframes uxeProgress {
@@ -2118,7 +2132,7 @@ margin-bottom: 30px;
 }
 
 .uxe-contact {
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--uxe-rule);
   padding-bottom: 72px;
   padding-top: 56px;
 }
@@ -2141,17 +2155,17 @@ margin-bottom: 30px;
 }
 
 .uxe-case-hero {
-  padding-top: 96px;
+  padding-top: 56px;
 }
 
 .uxe-back-link {
-  color: #E91E63;
+  color: var(--uxe-accent);
   display: inline-block;
   font-family: Montserrat, sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08rem;
-  margin-top: 48px;
+  margin-top: 32px;
   text-transform: uppercase;
 }
 
@@ -2165,13 +2179,13 @@ margin-bottom: 30px;
 }
 
 .uxe-back-link-bottom {
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--uxe-rule);
   margin-top: 12px;
   padding-top: 32px;
 }
 
 .uxe-meta-grid {
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--uxe-rule);
   display: grid;
   gap: 18px;
   grid-template-columns: repeat(4, 1fr);
@@ -2180,7 +2194,7 @@ margin-bottom: 30px;
 }
 
 .uxe-meta-grid span {
-  color: #E91E63;
+  color: var(--uxe-accent);
   display: block;
   font-family: Montserrat, sans-serif;
   font-size: 0.72rem;
@@ -2200,7 +2214,7 @@ margin-bottom: 30px;
 }
 
 .uxe-case-section {
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--uxe-rule);
   padding: 44px 0;
 }
 
@@ -2221,7 +2235,7 @@ margin-bottom: 30px;
 
 .uxe-detail-grid div {
   background: #fff;
-  border: 1px solid #efefef;
+  border: 1px solid var(--uxe-rule);
   padding: 24px;
 }
 
@@ -2267,15 +2281,18 @@ margin-bottom: 30px;
 
 @media (min-width: 1440px) {
   .uxe-hero.container.col-lg-8.col-md-10.col-centered {
-    max-width: 1180px;
-    width: min(100%, 1180px);
+    max-width: var(--uxe-shell);
+    width: min(100%, var(--uxe-shell));
   }
 
   #header > .container.col-lg-8.col-md-10.col-centered,
   .uxe-section.container.col-lg-8.col-md-10.col-centered,
-  .uxe-contact.container.col-lg-8.col-md-10.col-centered {
-    max-width: 1180px;
-    width: min(100%, 1180px);
+  .uxe-about.container.col-lg-8.col-md-10.col-centered,
+  .uxe-case.container.col-lg-8.col-md-10.col-centered,
+  .uxe-contact.container.col-lg-8.col-md-10.col-centered,
+  #footer > .container {
+    max-width: var(--uxe-shell);
+    width: min(100%, var(--uxe-shell));
   }
 }
 
@@ -2283,6 +2300,8 @@ margin-bottom: 30px;
   #header > .container.col-lg-8.col-md-10.col-centered,
   .uxe-hero.container.col-lg-8.col-md-10.col-centered,
   .uxe-section.container.col-lg-8.col-md-10.col-centered,
+  .uxe-about.container.col-lg-8.col-md-10.col-centered,
+  .uxe-case.container.col-lg-8.col-md-10.col-centered,
   .uxe-contact.container.col-lg-8.col-md-10.col-centered {
     padding-left: 22px;
     padding-right: 22px;
@@ -2299,7 +2318,7 @@ margin-bottom: 30px;
 }
 
 .uxe-archive-grid a {
-  border-top: 1px solid #efefef;
+  border-top: 1px solid var(--uxe-rule);
   display: block;
   padding-top: 18px;
 }
