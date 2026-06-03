@@ -1910,7 +1910,7 @@ margin-bottom: 30px;
 .uxe-project-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .uxe-project-card {
@@ -1944,6 +1944,37 @@ margin-bottom: 30px;
   line-height: 1.55;
   margin: 0 auto;
   max-width: 380px;
+}
+
+.uxe-experience-list {
+  color: #000;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 12px auto 0;
+  max-width: 320px;
+  padding-left: 18px;
+  text-align: left;
+}
+
+.uxe-experience-list li {
+  margin-bottom: 8px;
+}
+
+.uxe-case-link {
+  color: var(--uxe-accent);
+  display: inline-block;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08rem;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.uxe-case-link:hover {
+  color: var(--uxe-text);
+  text-decoration: none;
 }
 
 .uxe-motion-tile {
@@ -1998,6 +2029,53 @@ margin-bottom: 30px;
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+.uxe-motion-embedded span:nth-child(1) {
+  background: #000;
+  height: 86px;
+  left: 23%;
+  top: 28%;
+  width: 54%;
+}
+
+.uxe-motion-embedded span:nth-child(1)::before,
+.uxe-motion-embedded span:nth-child(1)::after {
+  background: var(--uxe-accent);
+  content: "";
+  position: absolute;
+}
+
+.uxe-motion-embedded span:nth-child(1)::before {
+  height: 8px;
+  left: 10px;
+  top: 12px;
+  width: 34px;
+}
+
+.uxe-motion-embedded span:nth-child(1)::after {
+  animation: uxeSignal 3.2s ease-in-out infinite;
+  border-radius: 50%;
+  height: 12px;
+  right: 12px;
+  top: 12px;
+  width: 12px;
+}
+
+.uxe-motion-embedded span:nth-child(2) {
+  background: #fff;
+  height: 26px;
+  left: 30%;
+  top: 49%;
+  width: 40%;
+}
+
+.uxe-motion-embedded span:nth-child(3) {
+  background: var(--uxe-accent);
+  height: 3px;
+  left: 32%;
+  top: 69%;
+  width: 36%;
 }
 
 .uxe-chart-svg {
@@ -2112,6 +2190,17 @@ margin-bottom: 30px;
   }
   55%, 88% {
     opacity: 1;
+  }
+}
+
+@keyframes uxeSignal {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+  45%, 80% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -2288,6 +2377,10 @@ margin-bottom: 30px;
 }
 
 @media (max-width: 900px) {
+  .uxe-project-grid {
+    grid-template-columns: 1fr;
+  }
+
   .uxe-project-card,
   .uxe-meta-grid,
   .uxe-detail-grid {
