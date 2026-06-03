@@ -2234,41 +2234,40 @@ margin-bottom: 30px;
   min-height: 380px;
 }
 
-.uxe-archive-grid {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: 1fr;
+.uxe-archive-list {
+  border-top: 1px solid var(--uxe-rule);
 }
 
-.uxe-archive-grid a {
-  align-items: center;
-  border-top: 1px solid var(--uxe-rule);
+.uxe-archive-list a {
+  border-bottom: 1px solid var(--uxe-rule);
   color: #000;
   display: grid;
-  gap: 24px;
-  grid-template-columns: 180px 1fr;
-  padding-top: 18px;
+  gap: 18px;
+  grid-template-columns: minmax(180px, 0.42fr) 1fr;
+  padding: 18px 0;
   text-align: left;
   text-decoration: none;
 }
 
-.uxe-archive-grid img {
-  aspect-ratio: 4 / 3;
-  background: #fff;
-  display: block;
-  height: 128px;
-  object-fit: contain;
-  padding: 14px;
-  width: 100%;
+.uxe-archive-list a:hover span {
+  color: var(--uxe-accent);
 }
 
-.uxe-archive-grid span {
+.uxe-archive-list span {
   display: block;
   font-family: Montserrat, sans-serif;
   font-size: 1rem;
   line-height: 1.35;
   margin: 0;
-  max-width: 360px;
+}
+
+.uxe-archive-list small {
+  color: #555;
+  display: block;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0;
 }
 
 .uxe-contact {
@@ -2412,6 +2411,11 @@ margin-bottom: 30px;
     gap: 18px;
   }
 
+  .uxe-motion-tile {
+    justify-self: center;
+    width: min(100%, 320px);
+  }
+
   .uxe-meta-grid,
   .uxe-detail-grid {
     grid-template-columns: 1fr;
@@ -2462,13 +2466,18 @@ margin-bottom: 30px;
 }
 
 @media (max-width: 520px) {
-  .uxe-archive-grid a,
   .uxe-project-card {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .uxe-archive-grid img {
-    height: 180px;
+  .uxe-motion-tile {
+    min-height: 160px;
+    width: min(100%, 280px);
+  }
+
+  .uxe-archive-list a {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
