@@ -2261,6 +2261,17 @@ margin-bottom: 30px;
   margin: 0;
 }
 
+.uxe-archive-list em {
+  color: #777;
+  display: inline-block;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 400;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
 .uxe-archive-list small {
   color: #555;
   display: block;
@@ -2271,9 +2282,8 @@ margin-bottom: 30px;
 }
 
 .uxe-contact {
-  border-top: 1px solid var(--uxe-rule);
   padding-bottom: 72px;
-  padding-top: 56px;
+  padding-top: 72px;
 }
 
 .uxe-contact p {
@@ -2414,6 +2424,22 @@ margin-bottom: 30px;
   .uxe-motion-tile {
     justify-self: center;
     width: min(100%, 320px);
+  }
+
+  .uxe-project-copy {
+    justify-self: center;
+    text-align: center;
+    width: min(100%, 560px);
+  }
+
+  .uxe-project-copy h3 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .uxe-experience-list {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .uxe-meta-grid,
