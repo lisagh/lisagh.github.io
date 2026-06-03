@@ -2249,11 +2249,12 @@ margin-bottom: 30px;
   text-decoration: none;
 }
 
-.uxe-archive-list a:hover span {
+.uxe-archive-list a:hover > span,
+.uxe-archive-list a:hover .uxe-project-name {
   color: var(--uxe-accent);
 }
 
-.uxe-archive-list span {
+.uxe-archive-list a > span {
   display: block;
   font-family: Montserrat, sans-serif;
   font-size: 1rem;
@@ -2261,14 +2262,27 @@ margin-bottom: 30px;
   margin: 0;
 }
 
-.uxe-archive-list em {
+.uxe-project-heading {
+  color: #000;
+}
+
+.uxe-project-name {
+  color: #000;
+  display: block;
+  font-family: Montserrat, sans-serif;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.uxe-project-meta {
   color: #777;
-  display: inline-block;
+  display: block;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 0.78rem;
   font-style: normal;
   font-weight: 400;
-  margin-left: 8px;
+  line-height: 1.35;
+  margin-top: 4px;
   white-space: nowrap;
 }
 
