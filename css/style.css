@@ -1909,16 +1909,19 @@ margin-bottom: 30px;
 
 .uxe-project-grid {
   display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  grid-template-columns: 1fr;
 }
 
 .uxe-project-card {
+  align-items: center;
   border-top: 1px solid var(--uxe-rule);
   color: #000;
-  display: block;
-  padding: 18px 0 32px;
-  text-align: center;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: 320px 1fr;
+  padding: 24px 0 40px;
+  text-align: left;
   text-decoration: none;
 }
 
@@ -1930,11 +1933,11 @@ margin-bottom: 30px;
 .uxe-project-copy h3 {
   color: #000;
   font-family: Montserrat, sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.35rem;
   font-weight: 500;
   line-height: 1.25;
-  margin: 14px auto 8px;
-  max-width: 340px;
+  margin: 14px 0 8px;
+  max-width: 520px;
 }
 
 .uxe-project-copy p {
@@ -1942,7 +1945,7 @@ margin-bottom: 30px;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 0.92rem;
   line-height: 1.55;
-  margin: 0 auto;
+  margin: 0;
   max-width: 380px;
 }
 
@@ -1951,8 +1954,8 @@ margin-bottom: 30px;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 0.9rem;
   line-height: 1.55;
-  margin: 12px auto 0;
-  max-width: 320px;
+  margin: 12px 0 0;
+  max-width: 560px;
   padding-left: 18px;
   text-align: left;
 }
@@ -1962,19 +1965,18 @@ margin-bottom: 30px;
 }
 
 .uxe-case-link {
-  color: var(--uxe-accent);
+  color: #555;
   display: inline-block;
   font-family: Montserrat, sans-serif;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08rem;
-  margin-top: 8px;
-  text-transform: uppercase;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-top: 6px;
 }
 
 .uxe-case-link:hover {
-  color: var(--uxe-text);
-  text-decoration: none;
+  color: var(--uxe-accent);
+  text-decoration: underline;
 }
 
 .uxe-motion-tile {
@@ -2033,10 +2035,10 @@ margin-bottom: 30px;
 
 .uxe-motion-embedded span:nth-child(1) {
   background: #000;
-  height: 86px;
-  left: 23%;
-  top: 28%;
-  width: 54%;
+  height: 48px;
+  left: 30%;
+  top: 40%;
+  width: 46%;
 }
 
 .uxe-motion-embedded span:nth-child(1)::before,
@@ -2047,35 +2049,50 @@ margin-bottom: 30px;
 }
 
 .uxe-motion-embedded span:nth-child(1)::before {
-  height: 8px;
-  left: 10px;
-  top: 12px;
-  width: 34px;
+  clip-path: polygon(0 100%, 16% 0, 100% 0, 100% 100%);
+  height: 30px;
+  left: -28px;
+  top: -22px;
+  width: 54px;
 }
 
 .uxe-motion-embedded span:nth-child(1)::after {
   animation: uxeSignal 3.2s ease-in-out infinite;
   border-radius: 50%;
-  height: 12px;
-  right: 12px;
-  top: 12px;
-  width: 12px;
+  height: 10px;
+  right: 10px;
+  top: 10px;
+  width: 10px;
 }
 
 .uxe-motion-embedded span:nth-child(2) {
-  background: #fff;
-  height: 26px;
+  background: transparent;
+  border: 8px solid #000;
+  border-radius: 50%;
+  box-shadow: 72px 4px 0 -2px #000;
+  height: 54px;
   left: 30%;
-  top: 49%;
-  width: 40%;
+  top: 60%;
+  width: 54px;
 }
 
 .uxe-motion-embedded span:nth-child(3) {
   background: var(--uxe-accent);
-  height: 3px;
-  left: 32%;
-  top: 69%;
-  width: 36%;
+  height: 5px;
+  left: 16%;
+  top: 62%;
+  width: 38%;
+}
+
+.uxe-motion-embedded span:nth-child(3)::before {
+  background: #000;
+  content: "";
+  height: 20px;
+  left: -10px;
+  position: absolute;
+  top: -8px;
+  transform: skewX(-24deg);
+  width: 42px;
 }
 
 .uxe-chart-svg {
@@ -2219,30 +2236,39 @@ margin-bottom: 30px;
 
 .uxe-archive-grid {
   display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  grid-template-columns: 1fr;
 }
 
 .uxe-archive-grid a {
+  align-items: center;
+  border-top: 1px solid var(--uxe-rule);
   color: #000;
-  text-align: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 180px 1fr;
+  padding-top: 18px;
+  text-align: left;
   text-decoration: none;
 }
 
 .uxe-archive-grid img {
   aspect-ratio: 4 / 3;
   background: #fff;
+  display: block;
+  height: 128px;
   object-fit: contain;
+  padding: 14px;
   width: 100%;
 }
 
 .uxe-archive-grid span {
   display: block;
   font-family: Montserrat, sans-serif;
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: 1.35;
-  margin: 12px auto 0;
-  max-width: 220px;
+  margin: 0;
+  max-width: 360px;
 }
 
 .uxe-contact {
@@ -2381,7 +2407,11 @@ margin-bottom: 30px;
     grid-template-columns: 1fr;
   }
 
-  .uxe-project-card,
+  .uxe-project-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
   .uxe-meta-grid,
   .uxe-detail-grid {
     grid-template-columns: 1fr;
@@ -2431,28 +2461,14 @@ margin-bottom: 30px;
   }
 }
 
-.uxe-archive-grid {
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-}
-
-.uxe-archive-grid a {
-  border-top: 1px solid var(--uxe-rule);
-  display: block;
-  padding-top: 18px;
-}
-
-.uxe-archive-grid img {
-  display: block;
-  height: 190px;
-  padding: 18px;
-}
-
 @media (max-width: 520px) {
-  .uxe-archive-grid {
+  .uxe-archive-grid a,
+  .uxe-project-card {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .uxe-archive-grid img {
-    height: 220px;
+    height: 180px;
   }
 }
