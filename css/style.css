@@ -1762,6 +1762,7 @@ margin-bottom: 30px;
   --uxe-accent: #E91E63;
   --uxe-text: #000;
   --uxe-rule: #efefef;
+  --uxe-surface: #f7f7f7;   /* one neutral ground, derived from --uxe-rule */
   --uxe-shell: 1060px;
 }
 

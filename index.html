@@ -142,7 +142,7 @@
          <section class="uxe-hero container col-lg-8 col-md-10 col-centered">
             <p class="uxe-kicker">Engineer + Designer</p>
             <h1>LISHA<br>CHEN</h1>
-            <p class="uxe-lede">I design, code, and ship product experiences that solve problems for users and the business. My work spans web, iOS, and Android UI, with a focus on clear interaction behavior, reliable implementation, and product details that help designers, PMs, and engineers move together.</p>
+            <p class="uxe-lede">I design interfaces and build them in production. Doing both removes the handoff where most interface quality is lost &mdash; currently at HBO Max, on the account, subscription and payment surfaces that carry access for a 140M+ subscriber base.</p>
             <div class="uxe-tags" aria-label="Core skills">
                <span>React</span>
                <span>React Native</span>
@@ -251,8 +251,14 @@
             </div>
             <div class="proj-grid">
                <a class="proj" href="may.html">
-                  <div class="proj-visual proj-visual-may">
-                     <img src="img/projects/may-char.png" alt="May's character illustration waving" loading="lazy">
+                  <div class="proj-visual">
+                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="Five marks pulsing at five different speeds, one per character state">
+                        <circle class="m-state m-state-1" cx="26"  cy="50" r="8"/>
+                        <circle class="m-state m-state-2" cx="53"  cy="50" r="8"/>
+                        <circle class="m-state m-state-3" cx="80"  cy="50" r="8"/>
+                        <circle class="m-state m-state-4" cx="107" cy="50" r="8"/>
+                        <circle class="m-state m-state-5" cx="134" cy="50" r="8"/>
+                     </svg>
                   </div>
                   <div class="proj-body">
                      <span class="proj-name">May <span class="proj-go" aria-hidden="true">&rarr;</span></span>
@@ -262,8 +268,15 @@
                </a>
 
                <a class="proj" href="accessible-player.html">
-                  <div class="proj-visual proj-visual-player">
-                     <img src="img/projects/player.jpg" alt="The player demo: a dark transport control with a seek bar, and the keyboard shortcut legend beneath it" loading="lazy">
+                  <div class="proj-visual">
+                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="A seek bar filling, with chapter ticks and a travelling thumb">
+                        <rect class="m-rule" x="16" y="48" width="128" height="4" rx="2" stroke="none" fill="#dcdcdc"/>
+                        <rect class="m-fill" x="16" y="48" width="128" height="4" rx="2"/>
+                        <rect class="m-tick" x="52"  y="46" width="2.5" height="8"/>
+                        <rect class="m-tick" x="88"  y="46" width="2.5" height="8"/>
+                        <rect class="m-tick" x="118" y="46" width="2.5" height="8"/>
+                        <circle class="m-thumb" cx="16" cy="50" r="8"/>
+                     </svg>
                   </div>
                   <div class="proj-body">
                      <span class="proj-name">Accessible Player Controls <span class="proj-go" aria-hidden="true">&rarr;</span></span>
@@ -273,17 +286,14 @@
                </a>
 
                <a class="proj" href="https://valu-home.com/search" target="_blank" rel="noopener">
-                  <div class="proj-visual proj-visual-valu">
-                     <svg class="vh" viewBox="0 0 160 100" role="img" aria-label="Abstract mark: a rising valuation chart with a location pin">
-                        <g class="vh-grid">
-                           <line x1="16" y1="84" x2="150" y2="84"></line>
-                           <line x1="16" y1="16" x2="16" y2="84"></line>
-                        </g>
-                        <rect class="vh-bar" x="32"  y="54" width="14" height="30"></rect>
-                        <rect class="vh-bar" x="58"  y="44" width="14" height="40"></rect>
-                        <rect class="vh-bar" x="84"  y="34" width="14" height="50"></rect>
-                        <rect class="vh-bar" x="110" y="22" width="14" height="62"></rect>
-                        <circle class="vh-pin" cx="117" cy="15" r="5"></circle>
+                  <div class="proj-visual">
+                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="A valuation rising to a located property">
+                        <path class="m-rule" d="M22 78h116M22 22v56"/>
+                        <rect class="m-bar m-bar-1" x="38"  y="54" width="14" height="24"/>
+                        <rect class="m-bar m-bar-2" x="62"  y="46" width="14" height="32"/>
+                        <rect class="m-bar m-bar-3" x="86"  y="38" width="14" height="40"/>
+                        <rect class="m-bar m-bar-4" x="110" y="28" width="14" height="50"/>
+                        <circle class="m-pin" cx="117" cy="18" r="6"/>
                      </svg>
                   </div>
                   <div class="proj-body">
@@ -294,8 +304,14 @@
                </a>
 
                <a class="proj" href="https://mypawpath.github.io/" target="_blank" rel="noopener">
-                  <div class="proj-visual proj-visual-paw">
-                     <img src="img/projects/pawpath.jpg" alt="PawPath's illustrated dog, from the product's own site" loading="lazy">
+                  <div class="proj-visual">
+                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="A route drawn between check-in points">
+                        <path class="m-route" d="M24 74C52 74 48 32 80 32s30 36 56 16"/>
+                        <path class="m-trace" d="M24 74C52 74 48 32 80 32s30 36 56 16"/>
+                        <circle class="m-node" cx="24" cy="74" r="5.5"/>
+                        <circle class="m-node" cx="80" cy="32" r="5.5"/>
+                        <circle class="m-node-end" cx="136" cy="48" r="6.5"/>
+                     </svg>
                   </div>
                   <div class="proj-body">
                      <span class="proj-name">PawPath <span class="proj-go" aria-hidden="true">&#8599;</span></span>
