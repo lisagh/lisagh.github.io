@@ -1,4 +1,7 @@
 jQuery(document).ready(function($) {
+  // Fall back to a core jQuery easing when the easing plugin is absent
+  // (it is only loaded on the older case-study pages).
+  var EASE = ($.easing && $.easing.easeInOutExpo) ? 'easeInOutExpo' : 'swing';
   var alterClass = function() {
     var ww = document.body.clientWidth;
     if (ww < 767) {
@@ -26,7 +29,7 @@ jQuery(document).ready(function($) {
   $('.back-to-top').click(function() {
     $('html, body').animate({
       scrollTop: 0
-    }, 1500, 'easeInOutExpo');
+    }, 1500, EASE);
     return false;
   });
 
@@ -98,7 +101,7 @@ jQuery(document).ready(function($) {
 
         $('html, body').animate({
           scrollTop: target.offset().top - top_space
-        }, 1500, 'easeInOutExpo');
+        }, 1500, EASE);
 
         if ($(this).parents('.nav-menu').length) {
           $('.nav-menu .menu-active').removeClass('menu-active');
@@ -116,7 +119,8 @@ jQuery(document).ready(function($) {
   });
 
   // Gallery - uses the magnific popup jQuery plugin
-  $('.gallery-popup').magnificPopup({
+  // magnific-popup is only loaded on pages that have a gallery.
+  if ($.fn.magnificPopup) $('.gallery-popup').magnificPopup({
     type: 'image',
     removalDelay: 300,
     mainClass: 'mfp-fade',

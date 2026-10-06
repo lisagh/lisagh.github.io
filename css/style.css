@@ -139,10 +139,14 @@ transition-delay:.2s;
   padding:10px 0;
 }
 
-.starter h2{
+.starter h2,
+.starter h1{
   font-family: Work Sans;
   font-weight: 1000;
   text-align:center;
+}
+.starter h1{
+  font-size: 1.5em;
 }
 .starter h3{
   font-family:"Montserrat", sans-serif;
@@ -899,8 +903,6 @@ h1, h2, h3, h4, h6 {
   cursor: pointer;
 }
 
-
-
 @media (max-width: 768px) {
   #mobile-nav-toggle {
     display: inline;
@@ -1191,7 +1193,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-weight: 700;
   color: #000;
 }
-
 
 #advanced-features p {
 
@@ -1812,19 +1813,20 @@ margin-bottom: 30px;
   color: var(--uxe-text);
   font-family: Montserrat, sans-serif;
   font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: 0;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
   margin: 16px 0 24px;
 }
 
 .uxe-case-hero h1 {
   font-size: clamp(2.3rem, 5vw, 4.5rem);
-  line-height: 1.04;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
 }
 
 .uxe-kicker {
-  color: var(--uxe-accent);
+  color: #777;
   font-family: Montserrat, sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
@@ -1900,7 +1902,8 @@ margin-bottom: 30px;
   color: #000;
   font-family: Montserrat, sans-serif;
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.015em;
   line-height: 1.25;
   margin: 10px 0 0;
   text-align: left;
@@ -1914,7 +1917,7 @@ margin-bottom: 30px;
 }
 
 .uxe-project-card {
-  align-items: center;
+  align-items: start;
   border-top: 1px solid var(--uxe-rule);
   color: #000;
   display: grid;
@@ -1930,7 +1933,8 @@ margin-bottom: 30px;
   text-decoration: none;
 }
 
-.uxe-project-copy h3 {
+.uxe-project-copy h3,
+.uxe-project-id h3 {
   color: #000;
   font-family: Montserrat, sans-serif;
   font-size: 1.35rem;
@@ -1952,10 +1956,10 @@ margin-bottom: 30px;
 .uxe-experience-list {
   color: #000;
   font-family: "Open Sans", Arial, sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  font-size: 1rem;
+  line-height: 1.6;
   margin: 12px 0 0;
-  max-width: 560px;
+  max-width: 62ch;
   padding-left: 18px;
   text-align: left;
 }
@@ -1977,248 +1981,6 @@ margin-bottom: 30px;
 .uxe-case-link:hover {
   color: var(--uxe-accent);
   text-decoration: underline;
-}
-
-.uxe-motion-tile {
-  align-items: center;
-  background: #fff;
-  border: 1px solid var(--uxe-rule);
-  display: flex;
-  justify-content: center;
-  min-height: 190px;
-  overflow: hidden;
-  padding: 24px;
-  position: relative;
-}
-
-.uxe-motion-tile span {
-  background: #000;
-  display: block;
-  position: absolute;
-}
-
-.uxe-motion-system span:nth-child(1) {
-  background: #000;
-  height: 92px;
-  left: 18%;
-  top: 24%;
-  width: 64%;
-}
-
-.uxe-motion-system span:nth-child(2) {
-  background: var(--uxe-accent);
-  clip-path: polygon(0 0, 0 100%, 100% 50%);
-  height: 24px;
-  left: 48%;
-  top: 43%;
-  width: 20px;
-}
-
-.uxe-motion-system span:nth-child(3) {
-  background: #000;
-  height: 2px;
-  left: 24%;
-  top: 78%;
-  width: 52%;
-}
-
-.uxe-motion-system span:nth-child(3)::after {
-  animation: uxeProgress 4s linear infinite;
-  background: var(--uxe-accent);
-  content: "";
-  height: 2px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.uxe-motion-embedded span:nth-child(1) {
-  background: #000;
-  height: 48px;
-  left: 30%;
-  top: 40%;
-  width: 46%;
-}
-
-.uxe-motion-embedded span:nth-child(1)::before,
-.uxe-motion-embedded span:nth-child(1)::after {
-  background: var(--uxe-accent);
-  content: "";
-  position: absolute;
-}
-
-.uxe-motion-embedded span:nth-child(1)::before {
-  clip-path: polygon(0 100%, 16% 0, 100% 0, 100% 100%);
-  height: 30px;
-  left: -28px;
-  top: -22px;
-  width: 54px;
-}
-
-.uxe-motion-embedded span:nth-child(1)::after {
-  animation: uxeSignal 3.2s ease-in-out infinite;
-  border-radius: 50%;
-  height: 10px;
-  right: 10px;
-  top: 10px;
-  width: 10px;
-}
-
-.uxe-motion-embedded span:nth-child(2) {
-  background: transparent;
-  border: 8px solid #000;
-  border-radius: 50%;
-  box-shadow: 72px 4px 0 -2px #000;
-  height: 54px;
-  left: 30%;
-  top: 60%;
-  width: 54px;
-}
-
-.uxe-motion-embedded span:nth-child(3) {
-  background: var(--uxe-accent);
-  height: 5px;
-  left: 16%;
-  top: 62%;
-  width: 38%;
-}
-
-.uxe-motion-embedded span:nth-child(3)::before {
-  background: #000;
-  content: "";
-  height: 20px;
-  left: -10px;
-  position: absolute;
-  top: -8px;
-  transform: skewX(-24deg);
-  width: 42px;
-}
-
-.uxe-chart-svg {
-  height: 78%;
-  left: 8%;
-  position: absolute;
-  top: 12%;
-  width: 84%;
-}
-
-.uxe-chart-axis-line {
-  stroke: #000;
-  stroke-linecap: square;
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-
-.uxe-chart-svg-bar {
-  animation: uxeCampaignBar 3.2s ease-in-out infinite;
-  fill: #000;
-  transform-box: fill-box;
-  transform-origin: center bottom;
-}
-
-.uxe-chart-svg-bar:nth-of-type(2) {
-  animation-delay: 0.06s;
-}
-
-.uxe-chart-svg-bar:nth-of-type(3) {
-  animation-delay: 0.12s;
-}
-
-.uxe-chart-svg-bar:nth-of-type(4) {
-  animation-delay: 0.18s;
-}
-
-.uxe-chart-svg-bar:nth-of-type(5) {
-  animation-delay: 0.24s;
-}
-
-.uxe-chart-svg-bar:nth-of-type(6) {
-  animation-delay: 0.3s;
-}
-
-.uxe-chart-svg-bar:nth-of-type(7) {
-  animation-delay: 0.36s;
-}
-
-.uxe-chart-svg-bar:nth-of-type(8) {
-  animation-delay: 0.42s;
-}
-
-.uxe-chart-svg-bar-accent {
-  fill: var(--uxe-accent);
-}
-
-.uxe-chart-svg-line {
-  animation: uxeDrawLine 3.2s ease-in-out infinite;
-  fill: none;
-  stroke: var(--uxe-accent);
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-
-.uxe-chart-svg-point {
-  animation: uxePointFade 3.2s ease-in-out infinite;
-  fill: var(--uxe-accent);
-}
-
-@keyframes uxeProgress {
-  0% {
-    transform: scaleX(0);
-    transform-origin: left center;
-  }
-  100% {
-    transform: scaleX(1);
-    transform-origin: left center;
-  }
-}
-
-@keyframes uxeCampaignBar {
-  0% {
-    transform: scaleY(0.12);
-  }
-  45%, 88% {
-    transform: scaleY(1);
-  }
-  100% {
-    transform: scaleY(0.12);
-  }
-}
-
-@keyframes uxeDrawLine {
-  0%, 15% {
-    stroke-dashoffset: 1;
-  }
-  55%, 88% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: 1;
-  }
-}
-
-@keyframes uxePointFade {
-  0%, 35%, 100% {
-    opacity: 0;
-  }
-  55%, 88% {
-    opacity: 1;
-  }
-}
-
-@keyframes uxeSignal {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(0.8);
-  }
-  45%, 80% {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 .uxe-case-visual {
@@ -2290,8 +2052,8 @@ margin-bottom: 30px;
   color: #555;
   display: block;
   font-family: "Open Sans", Arial, sans-serif;
-  font-size: 0.88rem;
-  line-height: 1.55;
+  font-size: 0.95rem;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -2304,17 +2066,6 @@ margin-bottom: 30px;
   font-family: "Open Sans", Arial, sans-serif;
   font-size: 1rem;
   margin: 12px 0 0;
-}
-
-.uxe-social {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.uxe-social a {
-  color: #000;
-  font-size: 2rem;
 }
 
 .uxe-case-hero {
@@ -2435,25 +2186,14 @@ margin-bottom: 30px;
     gap: 18px;
   }
 
-  .uxe-motion-tile {
-    justify-self: center;
-    width: min(100%, 320px);
-  }
-
+  /* The cards stack here. Keep them left-aligned to match the
+     two-column layout above; the old centring existed to balance the
+     decorative tile that no longer exists, and it left the company
+     name centred while its role line stayed flush left. */
   .uxe-project-copy {
-    justify-self: center;
-    text-align: center;
-    width: min(100%, 560px);
-  }
-
-  .uxe-project-copy h3 {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .uxe-experience-list {
-    margin-left: auto;
-    margin-right: auto;
+    justify-self: start;
+    text-align: left;
+    width: 100%;
   }
 
   .uxe-meta-grid,
@@ -2511,13 +2251,137 @@ margin-bottom: 30px;
     gap: 16px;
   }
 
-  .uxe-motion-tile {
-    min-height: 160px;
-    width: min(100%, 280px);
-  }
-
   .uxe-archive-list a {
     grid-template-columns: 1fr;
     gap: 6px;
   }
+}
+
+/* Earlier work — demoted archive group */
+.uxe-archive-label {
+  color: #777;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  margin: 44px 0 0;
+  text-transform: uppercase;
+}
+
+.uxe-archive-earlier a {
+  padding: 13px 0;
+}
+
+.uxe-archive-earlier a > span {
+  font-size: 0.88rem;
+}
+
+.uxe-archive-earlier small {
+  font-size: 0.8rem;
+}
+
+/* Contact email — was inheriting the browser default blue */
+.uxe-contact p a {
+  color: #000;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.uxe-contact p a:hover {
+  color: var(--uxe-accent);
+}
+
+/* Personal aside under the hero */
+.uxe-aside {
+  color: #777;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.82rem;
+  margin: 14px 0 0;
+}
+
+/* Role + dates under each work-experience heading */
+.uxe-role {
+  color: #555;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+}
+
+/* Break the role line only at its separators, never inside a date range */
+.uxe-role span {
+  white-space: nowrap;
+}
+
+.uxe-contact p .uxe-sep {
+  color: #999;
+  margin: 0 10px;
+}
+
+/* Award marker in a project's meta line */
+.uxe-award {
+  color: #000;
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  margin-left: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.uxe-award::before {
+  color: var(--uxe-rule);
+  content: "\2502";
+  font-weight: 400;
+  margin-right: 8px;
+}
+
+/* #12 — case-study prose was running the full 1060px (~110 characters) */
+.uxe-case-section p,
+.uxe-case-section .uxe-list {
+  max-width: 68ch;
+}
+
+/* #13 — the hero kicker keeps the accent so the palette still reads */
+.uxe-hero .uxe-kicker {
+  color: var(--uxe-accent);
+}
+
+/* Work entries: identity column on the left, substance on the right */
+.uxe-project-id h3 {
+  margin-top: 0;
+}
+
+.uxe-project-id .uxe-role span {
+  display: block;
+}
+
+/* Case-study fact strip — shared by may.html and accessible-player.html */
+.case-facts {
+  border-top: 1px solid var(--uxe-rule);
+  display: grid;
+  gap: 22px 32px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin: 36px 0 0;
+  padding-top: 24px;
+}
+
+.case-facts dt {
+  color: #777;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.case-facts dd {
+  font-family: Montserrat, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
 }

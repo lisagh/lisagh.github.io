@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>May — Brand and Motion System | Lisha Chen</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Brand identity, character system, and motion specification for May, the app-building product at Zhenfy.">
+      <link href="img/favicon.png" rel="icon">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,400,700" rel="stylesheet">
+      <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+      <link href="css/card.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+      <link href="css/may.css" rel="stylesheet">
+      <link rel="canonical" href="https://lisagh.github.io/may.html">
+      <meta property="og:type" content="article">
+      <meta property="og:site_name" content="Lisha Chen">
+      <meta property="og:url" content="https://lisagh.github.io/may.html">
+      <meta property="og:title" content="May — Brand and Motion System">
+      <meta property="og:description" content="Brand identity, character system, and motion specification for May, the app-building product at Zhenfy.">
+      <meta property="og:image" content="https://lisagh.github.io/img/og-card.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta property="og:image:alt" content="Lisha Chen — Engineer + Designer. A software engineer who designs.">
+      <meta name="twitter:card" content="summary_large_image">
+   </head>
+   <body>
+      <header id="header">
+         <div class="container col-lg-8 col-md-10 col-centered">
+            <nav id="nav-menu-container">
+               <ul class="nav-menu">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="LishaChenResume.pdf" target="_blank">Resume</a></li>
+               </ul>
+            </nav>
+         </div>
+      </header>
+
+      <main class="uxe-case container col-lg-8 col-md-10 col-centered">
+         <section class="uxe-case-hero">
+            <p class="uxe-kicker uxe-breadcrumb"><a href="index.html">Home</a><span>/</span>May</p>
+            <h1>A character that tells you what the system is doing.</h1>
+            <p class="uxe-lede">May is the app-building product at Zhenfy. I designed its brand identity and the character system that carries state across the product &mdash; six states, five loops, and one rule about when the character is not allowed to appear at all.</p>
+
+            <figure class="may-hero-logo">
+               <img src="img/may/logo-lockup.svg" alt="The May logo: a character head beside the word May, with the tagline Make Apps Yourself">
+            </figure>
+
+            <dl class="case-facts">
+               <div><dt>Role</dt><dd>Design Lead / Frontend</dd></div>
+               <div><dt>Client</dt><dd>Zhenfy LLC</dd></div>
+               <div><dt>Scope</dt><dd>Identity, character system, motion spec</dd></div>
+               <div><dt>Year</dt><dd>2026</dd></div>
+            </dl>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>The problem</h2>
+            <p>May generates software. That means most of what it does is invisible and slow &mdash; a brief being written, a build running, a version publishing. The interface spends a lot of its life asking the user to wait without being able to say how long.</p>
+            <p>A progress bar does not help here, because there is no honest percentage to show. So the question became: what can carry the feeling of &ldquo;something is happening, and it is going fine&rdquo; without lying about progress?</p>
+            <p class="may-pullquote">A fake percentage is worse than none.</p>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>The identity</h2>
+            <p>A charcoal character head with a looped cowlick, paired with heavy soft lettering. The mark had to work at 1024px as an app icon and at 24px in a product header, so the symbol is drawn to survive on its own without the wordmark.</p>
+
+            <div class="may-brand-grid">
+               <figure>
+                  <div class="may-swatch-frame"><img src="img/may/app-icon.png" alt="The May app icon: the character head on a lavender rounded square"></div>
+                  <figcaption>App icon &mdash; symbol only, 1024px source</figcaption>
+               </figure>
+               <figure>
+                  <div class="may-swatch-frame may-swatch-frame-dark"><img src="img/may/symbol.svg" alt="The May symbol in monochrome" class="may-symbol-invert"></div>
+                  <figcaption>Symbol &mdash; monochrome, no pink, works on either ground</figcaption>
+               </figure>
+            </div>
+
+            <h3 class="may-subhead">Palette</h3>
+            <ul class="may-palette">
+               <li><span class="may-chip" style="background:#E9DDFB"></span><strong>Lavender</strong><code>#E9DDFB</code></li>
+               <li><span class="may-chip" style="background:#A78BFA"></span><strong>Periwinkle</strong><code>#A78BFA</code></li>
+               <li><span class="may-chip may-chip-bordered" style="background:#FAF8FF"></span><strong>Off White</strong><code>#FAF8FF</code></li>
+               <li><span class="may-chip" style="background:#1F1F23"></span><strong>Charcoal</strong><code>#1F1F23</code></li>
+               <li><span class="may-chip" style="background:#5B463A"></span><strong>Warm Brown</strong><code>#5B463A</code></li>
+            </ul>
+
+            <figure class="may-sheet">
+               <img src="img/may/brand-sheet.jpg" alt="The full May brand sheet: primary logo, app icon, four character poses, colour palette, web and app application, and tagline system" loading="lazy">
+               <figcaption>The approved brand sheet &mdash; logo, icon, poses, palette, and application.</figcaption>
+            </figure>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>Five loops, one rule each</h2>
+            <p>Each state had to be distinguishable from the others at a glance, without reading a label. The separation is carried by <strong>speed</strong>: the fastest loop is machine work, the slowest is failure. Every loop below is live CSS on this page &mdash; no video, no GIF &mdash; and animates transform and opacity only.</p>
+
+            <div class="may-states">
+               <figure class="may-state" data-state="idle">
+                  <div class="may-state-stage"><img src="img/may/char-default.png" alt=""></div>
+                  <figcaption>
+                     <strong>Idle &middot; breathing</strong>
+                     <code>3.6s &middot; translateY 4px + scale 1.5%</code>
+                     <p>The slowest ambient loop. It should read as presence, not activity.</p>
+                  </figcaption>
+               </figure>
+
+               <figure class="may-state" data-state="thinking">
+                  <div class="may-state-stage"><img src="img/may/char-thinking.png" alt=""></div>
+                  <figcaption>
+                     <strong>Thinking &middot; waiting on the agent</strong>
+                     <code>4s sway &plusmn;2.2&deg;</code>
+                     <p>Brief generation and planning. Deliberately slower than the build loop so the two never feel alike.</p>
+                  </figcaption>
+               </figure>
+
+               <figure class="may-state" data-state="working">
+                  <div class="may-state-stage"><img src="img/may/char-typing.png" alt=""></div>
+                  <figcaption>
+                     <strong>Building &middot; working</strong>
+                     <code>1.1s bounce &plusmn;0.6&deg; &mdash; the fastest loop</code>
+                     <p>A run is executing. The faster cadence signals machine work rather than deliberation.</p>
+                  </figcaption>
+               </figure>
+
+               <figure class="may-state" data-state="success">
+                  <div class="may-state-stage"><img src="img/may/char-happy.png" alt=""></div>
+                  <figcaption>
+                     <strong>Success &middot; published</strong>
+                     <code>1.6s hop, spring easing</code>
+                     <p>In production this plays twice and settles back into idle. Celebration should end.</p>
+                  </figcaption>
+               </figure>
+
+               <figure class="may-state" data-state="failed">
+                  <div class="may-state-stage"><img src="img/may/char-resting.png" alt=""></div>
+                  <figcaption>
+                     <strong>Resting &middot; error or failed build</strong>
+                     <code>5s breathe, tilted &minus;7&deg;, saturation 75%</code>
+                     <p>May sits down rather than looking alarmed. The interface already carries the error; the character should lower the temperature, not raise it.</p>
+                  </figcaption>
+               </figure>
+            </div>
+
+            <p class="may-note"><strong>Asset gap.</strong> The approved sheet has four poses. The resting state above is a build-time variant of the sitting pose with the question mark erased, then tilted and desaturated. A dedicated resting pose drawn in the same style is the one asset still missing from this system.</p>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>Where May never appears</h2>
+            <p>The harder half of a mascot system is deciding where it is banned. May is absent from every dense work surface &mdash; pipeline views, environments, logs, and the production publish confirmation.</p>
+            <p class="may-pullquote">A friendly mascot beside a production publish dialog undercuts the seriousness of the decision.</p>
+            <p>On those surfaces the status is carried entirely by text and an indeterminate track: start time, last activity, current stage. Nothing about the state depends on the character being there.</p>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>Four rules</h2>
+            <ol class="may-rules">
+               <li><strong>One moving thing per screen.</strong> The character or the progress element, never both competing.</li>
+               <li><strong>Slower means calmer.</strong> Error is the slowest loop in the system; building is the fastest.</li>
+               <li><strong>Transform and opacity only.</strong> No width, top, or filter animation in loops &mdash; they cost layout and paint.</li>
+               <li><strong>Motion is never the status.</strong> A spinner does not say what stage a run is in; text does.</li>
+            </ol>
+
+            <h3 class="may-subhead">Timing tokens</h3>
+            <div class="may-table-wrap">
+               <table class="may-table">
+                  <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
+                  <tbody>
+                     <tr><td><code>--dur-quick</code></td><td>180ms</td><td>State swaps, button feedback, cross-fades</td></tr>
+                     <tr><td><code>--dur-calm</code></td><td>900ms</td><td>Splash reveal, first paint of a panel</td></tr>
+                     <tr><td><code>--loop-work</code></td><td>1.1s</td><td>Building &mdash; the fastest loop</td></tr>
+                     <tr><td><code>--loop-breathe</code></td><td>3.6s</td><td>Idle presence</td></tr>
+                     <tr><td><code>--loop-think</code></td><td>4s</td><td>Waiting on the agent</td></tr>
+                     <tr><td>Resting breathe</td><td>5s</td><td>Error and failed build &mdash; the slowest loop</td></tr>
+                  </tbody>
+               </table>
+            </div>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>Accessibility</h2>
+            <p>Under <code>prefers-reduced-motion: reduce</code> every loop stops, indeterminate tracks become static bars, and floating marks hold at 60% opacity. Nothing in the system depends on movement to be understood &mdash; each state also carries a label, a heading, and its own text in the product.</p>
+            <p>The character ships with an empty <code>alt</code>, because it repeats what the status line already says. State changes are announced with <code>aria-live="polite"</code> on the status line instead, so a screen reader hears the change once rather than twice.</p>
+            <p class="may-note">The five figures above follow the same rule: they are decorative, carry empty <code>alt</code> text, and stop animating entirely if your system asks for reduced motion.</p>
+         </section>
+
+         <a class="uxe-back-link uxe-back-link-bottom" href="index.html">Back to selected work</a>
+      </main>
+
+      <footer id="footer" style="position: relative;">
+         <div class="container">
+            <div class="copyright text-center">&copy; Code and Design by Lisha Chen</div>
+         </div>
+      </footer>
+
+      <script src="lib/jquery/jquery.min.js"></script>
+      <script src="lib/jquery/jquery-migrate.min.js"></script>
+      <script src="lib/wow/wow.min.js"></script>
+      <script src="lib/superfish/superfish.min.js"></script>
+      <script src="js/main.js"></script>
+   </body>
+</html>

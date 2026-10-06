@@ -1,0 +1,358 @@
+/* Accessible player controls demo.
+   Dark surface so the control affordances read the way they do in a real
+   player, sitting inside the site's light editorial column. */
+
+:root {
+  --pl-bg: #141417;
+  --pl-surface: #1e1e23;
+  --pl-line: rgba(255, 255, 255, 0.14);
+  --pl-fg: #f2f2f4;
+  --pl-dim: #a0a0a8;
+  --pl-accent: #E91E63;
+}
+
+.pl-hint {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 0 0 24px;
+  max-width: 62ch;
+}
+
+.pl-hint kbd,
+.pl-keys kbd,
+.pl-decisions kbd {
+  background: #f4f4f4;
+  border: 1px solid #dcdcdc;
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  display: inline-block;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.78em;
+  line-height: 1.4;
+  padding: 1px 6px;
+}
+
+/* ---------- shell ---------- */
+
+.pl {
+  background: var(--pl-bg);
+  color: var(--pl-fg);
+  overflow: hidden;
+  position: relative;
+}
+
+.pl-stage {
+  align-items: center;
+  aspect-ratio: 16 / 7;
+  background:
+    radial-gradient(120% 140% at 50% 0%, #26262d 0%, #141417 68%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px;
+  position: relative;
+  text-align: center;
+}
+
+.pl-scene-num {
+  color: var(--pl-dim);
+  display: block;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 10px;
+}
+
+.pl-scene-label {
+  font-family: Montserrat, sans-serif;
+  font-size: clamp(1.3rem, 3.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  transition: opacity 240ms ease;
+}
+
+.pl-caption {
+  background: rgba(0, 0, 0, 0.72);
+  border-radius: 2px;
+  bottom: 20px;
+  color: #fff;
+  font-size: 0.95rem;
+  left: 50%;
+  line-height: 1.45;
+  margin: 0;
+  max-width: min(92%, 46ch);
+  padding: 7px 12px;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.pl-badge {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--pl-line);
+  color: var(--pl-fg);
+  font-family: Montserrat, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  left: 16px;
+  letter-spacing: 0.1em;
+  padding: 5px 10px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 16px;
+}
+
+/* ---------- control bar ---------- */
+
+.pl-bar {
+  align-items: center;
+  background: var(--pl-surface);
+  border-top: 1px solid var(--pl-line);
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.pl-btn {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 2px;
+  color: var(--pl-fg);
+  cursor: pointer;
+  display: inline-flex;
+  flex: none;
+  height: 40px;
+  justify-content: center;
+  padding: 0;
+  transition: color 160ms ease;
+  width: 40px;
+}
+
+.pl-btn:hover { color: var(--pl-accent); }
+
+.pl-btn-text {
+  font-family: Montserrat, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  width: auto;
+  padding: 0 10px;
+}
+
+.pl-btn-text[aria-pressed="true"] {
+  background: var(--pl-fg);
+  color: var(--pl-bg);
+}
+
+.pl-ico { width: 22px; height: 22px; fill: currentColor; }
+
+/* icon swapping is driven by state attributes, never by colour alone */
+.pl-ico-pause { display: none; }
+.pl[data-state="playing"] .pl-ico-play  { display: none; }
+.pl[data-state="playing"] .pl-ico-pause { display: block; }
+
+.pl-ico-mute { display: none; }
+.pl[data-muted="true"] .pl-ico-vol  { display: none; }
+.pl[data-muted="true"] .pl-ico-mute { display: block; }
+
+.pl-time {
+  color: var(--pl-dim);
+  flex: none;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  min-width: 4ch;
+}
+
+/* ---------- seek ---------- */
+
+.pl-seek-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  position: relative;
+}
+
+.pl-seek {
+  cursor: pointer;
+  display: block;
+  padding: 12px 0;          /* 44px-tall hit area around a 4px track */
+  position: relative;
+  touch-action: none;
+}
+
+.pl-track {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  height: 4px;
+  position: relative;
+}
+
+.pl-buffered,
+.pl-played {
+  border-radius: 2px;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.pl-buffered { background: rgba(255, 255, 255, 0.26); }
+.pl-played   { background: var(--pl-accent); transition: width 120ms linear; }
+
+.pl-thumb {
+  background: #fff;
+  border-radius: 50%;
+  height: 13px;
+  margin-left: -6.5px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 120ms linear, transform 140ms ease;
+  width: 13px;
+}
+
+.pl-seek:hover .pl-thumb,
+.pl-seek:focus-visible .pl-thumb { transform: translateY(-50%) scale(1.25); }
+
+.pl-chapters { position: absolute; inset: 12px 0 auto; height: 4px; }
+
+.pl-tick {
+  background: var(--pl-bg);
+  height: 4px;
+  position: absolute;
+  top: 0;
+  width: 2px;
+}
+
+.pl-scrub {
+  background: #000;
+  border: 1px solid var(--pl-line);
+  border-radius: 2px;
+  bottom: calc(100% + 2px);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  padding: 3px 7px;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+/* ---------- volume ---------- */
+
+.pl-vol { align-items: center; display: flex; flex: none; gap: 6px; }
+
+.pl-volbar {
+  cursor: pointer;
+  padding: 12px 0;
+  touch-action: none;
+  width: 72px;
+}
+
+.pl-voltrack {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  height: 4px;
+}
+
+.pl-volfill {
+  background: var(--pl-fg);
+  border-radius: 2px;
+  height: 100%;
+  transition: width 120ms linear;
+}
+
+@media (max-width: 620px) {
+  .pl-vol { display: none; }     /* volume is device-level on touch */
+}
+
+/* ---------- focus ---------- */
+
+.pl-btn:focus-visible,
+.pl-seek:focus-visible,
+.pl-volbar:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---------- screen-reader-only status ---------- */
+
+.pl-sr {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* ---------- keyboard legend ---------- */
+
+.pl-keys {
+  display: grid;
+  gap: 10px 28px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+}
+
+.pl-keys li {
+  align-items: baseline;
+  border-top: 1px solid var(--uxe-rule);
+  display: flex;
+  font-size: 0.9rem;
+  gap: 8px;
+  padding-top: 10px;
+}
+
+.pl-keys span { color: #555; margin-left: auto; }
+
+/* ---------- decisions ---------- */
+
+.pl-decisions {
+  display: grid;
+  gap: 28px 36px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  margin-top: 28px;
+}
+
+.pl-decisions article { border-top: 1px solid var(--uxe-text); padding-top: 18px; }
+
+.pl-decisions h3 {
+  font-family: Montserrat, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+}
+
+.pl-decisions p {
+  color: #555;
+  font-size: 0.93rem;
+  line-height: 1.62;
+  margin: 0;
+}
+
+.pl-decisions code,
+.uxe-case-section p code {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  font-size: 0.86em;
+  padding: 1px 5px;
+}
+
+/* ---------- reduced motion ----------
+   The demo claims nothing depends on movement, so it has to hold up. */
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-played,
+  .pl-thumb,
+  .pl-volfill,
+  .pl-scene-label {
+    transition: none !important;
+  }
+  .pl-seek:hover .pl-thumb,
+  .pl-seek:focus-visible .pl-thumb { transform: translateY(-50%); }
+}

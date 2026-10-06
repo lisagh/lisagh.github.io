@@ -1,0 +1,47 @@
+/* Homepage standalone layer.
+   index.html ships without Bootstrap, Font Awesome, jQuery, superfish,
+   wow.js or main.js. This file replaces the three things those actually
+   provided on this page; everything else they loaded was unused.
+   The other pages still use the old template and are unaffected. */
+
+/* 1. Bootstrap's .container supplied the horizontal centring. The uxe
+      rules set width and padding but never a margin, so without this the
+      whole page sits flush left. */
+.container {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 1b. Bootstrap's Reboot also removed the default link underline, and
+       .uxe-case-link and .footer-links were relying on it. Anything that
+       wants an underline sets one explicitly. */
+a {
+  text-decoration: none;
+}
+
+/* 2. The footer used .row / .col-lg-6 / .text-lg-* / .pt-* for a simple
+      two-up layout. Flexbox does it without the grid system. */
+.home-footer {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .home-footer {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* 3. The template hid the nav below 768px and relied on main.js to inject
+      a hamburger button and a slide-in panel. With two links there is
+      nothing to collapse, so show them instead of shipping 96KB of
+      jQuery to build a menu. */
+@media (max-width: 768px) {
+  #header #nav-menu-container {
+    display: block !important;
+  }
+}

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Accessible Player Controls | Lisha Chen</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="A working, keyboard-operable video transport control: seek bar, captions, volume, and screen-reader announcements. Built as a public recreation of the interaction problems behind confidential streaming work.">
+      <link href="img/favicon.png" rel="icon">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,400,700" rel="stylesheet">
+      <link href="css/card.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+      <link href="css/home.css" rel="stylesheet">
+      <link href="css/player.css" rel="stylesheet">
+      <link rel="canonical" href="https://lisagh.github.io/accessible-player.html">
+      <meta property="og:type" content="article">
+      <meta property="og:site_name" content="Lisha Chen">
+      <meta property="og:url" content="https://lisagh.github.io/accessible-player.html">
+      <meta property="og:title" content="Accessible Player Controls — a working demo">
+      <meta property="og:description" content="A working, keyboard-operable video transport control: seek bar, captions, volume, and screen-reader announcements.">
+      <meta property="og:image" content="https://lisagh.github.io/img/og-card.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta property="og:image:alt" content="Lisha Chen — Engineer + Designer. A software engineer who designs.">
+      <meta name="twitter:card" content="summary_large_image">
+   </head>
+   <body>
+      <header id="header">
+         <div class="container col-lg-8 col-md-10 col-centered">
+            <nav id="nav-menu-container">
+               <ul class="nav-menu">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="LishaChenResume.pdf" target="_blank">Resume</a></li>
+               </ul>
+            </nav>
+         </div>
+      </header>
+
+      <main class="uxe-case container col-lg-8 col-md-10 col-centered">
+         <section class="uxe-case-hero">
+            <p class="uxe-kicker uxe-breadcrumb"><a href="index.html">Home</a><span>/</span>Accessible player controls</p>
+            <h1>A transport control you can drive without a mouse.</h1>
+            <p class="uxe-lede">My streaming work is confidential, so this is a public recreation of the problem underneath it: a seek bar is the hardest control in a player to get right, and almost every custom one ships broken for keyboard and screen-reader users. This one is real &mdash; tab into it and try the keys.</p>
+
+            <dl class="case-facts">
+               <div><dt>What</dt><dd>Working demo, not a mockup</dd></div>
+               <div><dt>Built with</dt><dd>Vanilla JS, no dependencies</dd></div>
+               <div><dt>Playback</dt><dd>Simulated &mdash; no media file</dd></div>
+               <div><dt>Source</dt><dd>View source on this page</dd></div>
+            </dl>
+         </section>
+
+         <!-- ============================ the demo ============================ -->
+         <section class="uxe-case-section">
+            <h2>Try it</h2>
+            <p class="pl-hint">Press <kbd>Tab</kbd> to move into the player, then use the keys below. Everything announces to a screen reader, and nothing depends on seeing the animation.</p>
+
+            <div class="pl" id="player" data-state="paused">
+               <div class="pl-stage">
+                  <div class="pl-scene" id="scene">
+                     <span class="pl-scene-num" id="sceneNum">01</span>
+                     <span class="pl-scene-label" id="sceneLabel">Cold open</span>
+                  </div>
+                  <p class="pl-caption" id="caption" aria-hidden="true">Captions appear here.</p>
+                  <div class="pl-badge" id="badge" hidden>Paused</div>
+               </div>
+
+               <div class="pl-bar">
+                  <button class="pl-btn pl-btn-play" id="playBtn" type="button" aria-label="Play">
+                     <svg class="pl-ico pl-ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+                     <svg class="pl-ico pl-ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.2v14H7zM13.8 5H17v14h-3.2z"/></svg>
+                  </button>
+
+                  <span class="pl-time" id="timeNow">0:00</span>
+
+                  <div class="pl-seek-wrap">
+                     <div class="pl-seek"
+                          id="seek"
+                          role="slider"
+                          tabindex="0"
+                          aria-label="Seek"
+                          aria-valuemin="0"
+                          aria-valuemax="222"
+                          aria-valuenow="0"
+                          aria-valuetext="0 seconds of 3 minutes 42 seconds">
+                        <div class="pl-track">
+                           <div class="pl-buffered" id="buffered"></div>
+                           <div class="pl-played" id="played"></div>
+                           <div class="pl-thumb" id="thumb"></div>
+                        </div>
+                        <div class="pl-chapters" id="chapters" aria-hidden="true"></div>
+                     </div>
+                     <div class="pl-scrub" id="scrub" hidden aria-hidden="true">
+                        <span class="pl-scrub-time" id="scrubTime">0:00</span>
+                     </div>
+                  </div>
+
+                  <span class="pl-time pl-time-total">3:42</span>
+
+                  <button class="pl-btn pl-btn-text" id="ccBtn" type="button" aria-pressed="false" aria-label="Captions">CC</button>
+
+                  <div class="pl-vol">
+                     <button class="pl-btn" id="muteBtn" type="button" aria-label="Mute">
+                        <svg class="pl-ico pl-ico-vol" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path class="pl-wave" d="M15.2 9.2a4 4 0 0 1 0 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="pl-wave" d="M17.6 6.8a7.4 7.4 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        <svg class="pl-ico pl-ico-mute" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.6v12.8L7.2 14.5H4z"/><path d="M15.4 9.4l4.2 4.2M19.6 9.4l-4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                     </button>
+                     <div class="pl-volbar"
+                          id="vol"
+                          role="slider"
+                          tabindex="0"
+                          aria-label="Volume"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          aria-valuenow="80"
+                          aria-valuetext="80 percent">
+                        <div class="pl-voltrack"><div class="pl-volfill" id="volFill"></div></div>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- One polite live region for the whole player. See "Decisions" below. -->
+               <p class="pl-sr" id="status" role="status" aria-live="polite"></p>
+            </div>
+
+            <ul class="pl-keys" aria-label="Keyboard shortcuts">
+               <li><kbd>Space</kbd> <kbd>K</kbd><span>Play / pause</span></li>
+               <li><kbd>&larr;</kbd> <kbd>&rarr;</kbd><span>Seek 5 seconds</span></li>
+               <li><kbd>J</kbd> <kbd>L</kbd><span>Seek 10 seconds</span></li>
+               <li><kbd>&uarr;</kbd> <kbd>&darr;</kbd><span>Volume, 5% steps</span></li>
+               <li><kbd>Home</kbd> <kbd>End</kbd><span>Start / end</span></li>
+               <li><kbd>M</kbd><span>Mute</span></li>
+               <li><kbd>C</kbd><span>Captions</span></li>
+               <li><kbd>0</kbd>&ndash;<kbd>9</kbd><span>Jump to 0&ndash;90%</span></li>
+            </ul>
+         </section>
+
+         <!-- ============================ the reasoning ======================= -->
+         <section class="uxe-case-section">
+            <h2>Decisions</h2>
+
+            <div class="pl-decisions">
+               <article>
+                  <h3>The seek bar announces time, not a number</h3>
+                  <p>A bare <code>role="slider"</code> would read as &ldquo;67&rdquo; &mdash; sixty-seven of what? Every seek sets <code>aria-valuetext</code> to a spoken duration, so it reads &ldquo;1 minute 23 seconds of 3 minutes 42 seconds&rdquo;. <code>aria-valuenow</code> stays numeric underneath for anything that needs the raw value.</p>
+               </article>
+
+               <article>
+                  <h3>Arrow keys move 5 seconds, not 1 percent</h3>
+                  <p>The slider's range is time, so its step should be time. A percentage step makes the same keypress mean four seconds on a short clip and four minutes on a long one. <kbd>J</kbd> and <kbd>L</kbd> give a coarser 10-second jump for scanning, which is the pattern viewers already know.</p>
+               </article>
+
+               <article>
+                  <h3>One live region, on the status line</h3>
+                  <p>Announcements go to a single <code>role="status"</code> element, never to the thumb. Putting live text on the slider itself makes a screen reader read the value twice on every arrow press. Seek announcements are also debounced, so holding an arrow key produces one settled announcement instead of forty.</p>
+               </article>
+
+               <article>
+                  <h3>Hovering never steals focus</h3>
+                  <p>The scrub preview follows the pointer and is marked <code>aria-hidden</code>. It is a sighted-pointer affordance, so it adds nothing to the accessibility tree &mdash; a keyboard user already has the value spoken.</p>
+               </article>
+
+               <article>
+                  <h3>The shortcuts do not fight the page</h3>
+                  <p>Key handling is bound to the player, not to <code>document</code>. A global <kbd>Space</kbd> listener is the classic player bug: it hijacks the spacebar from every button and text field on the page. Here the keys only work once focus is inside the player.</p>
+               </article>
+
+               <article>
+                  <h3>State is readable without motion or colour</h3>
+                  <p>Play state has an icon, a label, and an announcement. Captions have <code>aria-pressed</code> rather than a colour change alone. Under <code>prefers-reduced-motion</code> the progress fill stops transitioning and the scene no longer cross-fades &mdash; the numbers still update.</p>
+               </article>
+            </div>
+         </section>
+
+         <section class="uxe-case-section">
+            <h2>What it does not do</h2>
+            <p>There is no media file. A timer drives a simulated clock so the control logic is the whole artifact &mdash; dropping in a real <code>&lt;video&gt;</code> would mean replacing the clock with <code>timeupdate</code> and the seek handler with <code>currentTime</code>, and nothing else here would change.</p>
+            <p>It also does not attempt a full player: no quality selector, no cast, no picture-in-picture, no fullscreen. Those are real surfaces with their own problems; adding stubs for them would make this longer without making it better.</p>
+         </section>
+
+         <a class="uxe-back-link uxe-back-link-bottom" href="index.html">Back to selected work</a>
+      </main>
+
+      <footer id="footer">
+         <div class="container home-footer">
+            <div class="copyright">&copy; Code and Design by Lisha Chen</div>
+            <nav class="footer-links"><a href="index.html">Home</a></nav>
+         </div>
+      </footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var DURATION = 222;                       // 3:42
+  var CHAPTERS = [
+    { at: 0,   label: "Cold open" },
+    { at: 38,  label: "Title" },
+    { at: 86,  label: "The argument" },
+    { at: 150, label: "Counterpoint" },
+    { at: 196, label: "Close" }
+  ];
+  var LINES = [
+    { at: 0,   text: "A seek bar looks like one control." },
+    { at: 14,  text: "It is actually four: a value, a target, a preview, and a commit." },
+    { at: 38,  text: "Keyboard users only ever get the first two." },
+    { at: 62,  text: "So those two have to carry the whole interaction." },
+    { at: 86,  text: "Which means the value has to be spoken in the user's units." },
+    { at: 118, text: "Seconds. Not percent, and not an index." },
+    { at: 150, text: "And the announcement has to settle before it speaks." },
+    { at: 178, text: "Otherwise holding an arrow key reads forty numbers." },
+    { at: 196, text: "Get those right and the rest is decoration." }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var player = $("player"), seek = $("seek"), vol = $("vol");
+  var played = $("played"), buffered = $("buffered"), thumb = $("thumb");
+  var volFill = $("volFill"), timeNow = $("timeNow"), status = $("status");
+  var playBtn = $("playBtn"), ccBtn = $("ccBtn"), muteBtn = $("muteBtn");
+  var caption = $("caption"), sceneNum = $("sceneNum"), sceneLabel = $("sceneLabel");
+  var badge = $("badge"), scrub = $("scrub"), scrubTime = $("scrubTime");
+  var chaptersEl = $("chapters");
+
+  var t = 0, playing = false, volume = 80, muted = false, captions = false;
+  var buffer = 0.28, ticker = null, announceTimer = null, dragging = false;
+
+  /* ---------- formatting ---------- */
+
+  function clock(sec) {
+    sec = Math.max(0, Math.round(sec));
+    return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
+  }
+
+  // Spoken form. "1:23" is read as "one twenty-three" by some screen readers,
+  // which is ambiguous for a duration, so spell the units out.
+  function spoken(sec) {
+    sec = Math.max(0, Math.round(sec));
+    var m = Math.floor(sec / 60), s = sec % 60, out = [];
+    if (m) out.push(m + (m === 1 ? " minute" : " minutes"));
+    if (s || !m) out.push(s + (s === 1 ? " second" : " seconds"));
+    return out.join(" ");
+  }
+
+  /* ---------- announcements ----------
+     One region, debounced. Holding an arrow key should produce a single
+     settled announcement, not one per repeat. */
+
+  function announce(msg, immediate) {
+    clearTimeout(announceTimer);
+    if (immediate) { status.textContent = msg; return; }
+    announceTimer = setTimeout(function () { status.textContent = msg; }, 350);
+  }
+
+  /* ---------- render ---------- */
+
+  function chapterAt(sec) {
+    var c = CHAPTERS[0];
+    for (var i = 0; i < CHAPTERS.length; i++) if (sec >= CHAPTERS[i].at) c = CHAPTERS[i];
+    return c;
+  }
+
+  function lineAt(sec) {
+    var l = null;
+    for (var i = 0; i < LINES.length; i++) if (sec >= LINES[i].at) l = LINES[i];
+    return l;
+  }
+
+  function render() {
+    var pct = (t / DURATION) * 100;
+    played.style.width = pct + "%";
+    thumb.style.left = pct + "%";
+    buffered.style.width = Math.min(100, pct + buffer * 100) + "%";
+    timeNow.textContent = clock(t);
+
+    seek.setAttribute("aria-valuenow", Math.round(t));
+    seek.setAttribute("aria-valuetext", spoken(t) + " of " + spoken(DURATION));
+
+    var ch = chapterAt(t);
+    var idx = CHAPTERS.indexOf(ch) + 1;
+    sceneNum.textContent = String(idx).padStart(2, "0");
+    sceneLabel.textContent = ch.label;
+
+    var line = lineAt(t);
+    caption.textContent = line ? line.text : "";
+    caption.hidden = !captions;
+
+    volFill.style.width = (muted ? 0 : volume) + "%";
+    vol.setAttribute("aria-valuenow", muted ? 0 : volume);
+    vol.setAttribute("aria-valuetext", muted ? "Muted" : volume + " percent");
+
+    player.dataset.state = playing ? "playing" : "paused";
+    player.dataset.muted = String(muted || volume === 0);
+    playBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+    muteBtn.setAttribute("aria-label", muted ? "Unmute" : "Mute");
+    ccBtn.setAttribute("aria-pressed", String(captions));
+    badge.hidden = playing;
+  }
+
+  /* ---------- transport ---------- */
+
+  function tick() {
+    t += 0.25;
+    if (t >= DURATION) { t = DURATION; pause(); announce("Ended", true); }
+    render();
+  }
+
+  function play() {
+    if (playing) return;
+    if (t >= DURATION) t = 0;
+    playing = true;
+    ticker = setInterval(tick, 250);
+    render();
+    announce("Playing", true);
+  }
+
+  function pause() {
+    if (!playing) return;
+    playing = false;
+    clearInterval(ticker);
+    render();
+    announce("Paused", true);
+  }
+
+  function toggle() { playing ? pause() : play(); }
+
+  function seekTo(sec, announceIt) {
+    t = Math.min(DURATION, Math.max(0, sec));
+    render();
+    if (announceIt !== false) announce(spoken(t) + " of " + spoken(DURATION));
+  }
+
+  function setVolume(v) {
+    volume = Math.min(100, Math.max(0, v));
+    if (volume > 0) muted = false;
+    render();
+    announce(muted || volume === 0 ? "Muted" : "Volume " + volume + " percent");
+  }
+
+  /* ---------- pointer seeking ---------- */
+
+  function ratioFromEvent(e) {
+    var r = seek.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+  }
+
+  seek.addEventListener("pointerdown", function (e) {
+    dragging = true;
+    seek.setPointerCapture(e.pointerId);
+    seekTo(ratioFromEvent(e) * DURATION, false);
+  });
+
+  seek.addEventListener("pointermove", function (e) {
+    var sec = ratioFromEvent(e) * DURATION;
+    // Preview is pointer-only and aria-hidden; a keyboard user already hears
+    // the value, so this must not enter the accessibility tree.
+    scrub.hidden = false;
+    scrub.style.left = (sec / DURATION) * 100 + "%";
+    scrubTime.textContent = clock(sec);
+    if (dragging) seekTo(sec, false);
+  });
+
+  seek.addEventListener("pointerleave", function () { scrub.hidden = true; });
+
+  seek.addEventListener("pointerup", function (e) {
+    dragging = false;
+    seek.releasePointerCapture(e.pointerId);
+    announce(spoken(t) + " of " + spoken(DURATION), true);
+  });
+
+  /* ---------- keyboard ----------
+     Bound to the player, not to document. A global Space handler is the
+     classic player bug: it steals the spacebar from every other control. */
+
+  player.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var onVolume = e.target === vol;
+    var k = e.key;
+
+    // Let buttons keep their own Enter/Space activation.
+    var onButton = e.target.tagName === "BUTTON";
+    if (onButton && (k === " " || k === "Enter")) return;
+
+    switch (k) {
+      case " ": case "k": case "K":
+        toggle(); break;
+      case "ArrowLeft":  onVolume ? setVolume(volume - 5) : seekTo(t - 5); break;
+      case "ArrowRight": onVolume ? setVolume(volume + 5) : seekTo(t + 5); break;
+      case "j": case "J": seekTo(t - 10); break;
+      case "l": case "L": seekTo(t + 10); break;
+      case "ArrowUp":    setVolume(volume + 5); break;
+      case "ArrowDown":  setVolume(volume - 5); break;
+      case "Home":       onVolume ? setVolume(0) : seekTo(0); break;
+      case "End":        onVolume ? setVolume(100) : seekTo(DURATION); break;
+      case "PageUp":     seekTo(t + 30); break;
+      case "PageDown":   seekTo(t - 30); break;
+      case "m": case "M":
+        muted = !muted; render();
+        announce(muted ? "Muted" : "Volume " + volume + " percent", true);
+        break;
+      case "c": case "C":
+        captions = !captions; render();
+        announce(captions ? "Captions on" : "Captions off", true);
+        break;
+      default:
+        if (k >= "0" && k <= "9") { seekTo((parseInt(k, 10) / 10) * DURATION); break; }
+        return;                              // unhandled: let the page have it
+    }
+    e.preventDefault();
+  });
+
+  /* ---------- buttons ---------- */
+
+  playBtn.addEventListener("click", toggle);
+  ccBtn.addEventListener("click", function () {
+    captions = !captions; render();
+    announce(captions ? "Captions on" : "Captions off", true);
+  });
+  muteBtn.addEventListener("click", function () {
+    muted = !muted; render();
+    announce(muted ? "Muted" : "Volume " + volume + " percent", true);
+  });
+  vol.addEventListener("pointerdown", function (e) {
+    var r = vol.getBoundingClientRect();
+    setVolume(Math.round(((e.clientX - r.left) / r.width) * 100));
+  });
+
+  /* ---------- chapter ticks ---------- */
+
+  CHAPTERS.forEach(function (c) {
+    if (!c.at) return;
+    var tick = document.createElement("span");
+    tick.className = "pl-tick";
+    tick.style.left = (c.at / DURATION) * 100 + "%";
+    chaptersEl.appendChild(tick);
+  });
+
+  render();
+})();
+</script>
+   </body>
+</html>
