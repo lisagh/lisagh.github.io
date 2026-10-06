@@ -1918,13 +1918,13 @@ margin-bottom: 30px;
 }
 
 .uxe-project-card {
-  align-items: start;
+  align-items: center;
   border-top: 1px solid var(--uxe-rule);
   color: #000;
   display: grid;
-  gap: 32px;
-  grid-template-columns: 320px 1fr;
-  padding: 24px 0 40px;
+  gap: 40px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  padding: 28px 0 36px;
   text-align: left;
   text-decoration: none;
 }
@@ -1954,20 +1954,7 @@ margin-bottom: 30px;
   max-width: 380px;
 }
 
-.uxe-experience-list {
-  color: #000;
-  font-family: "Open Sans", Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin: 12px 0 0;
-  max-width: 62ch;
-  padding-left: 18px;
-  text-align: left;
-}
 
-.uxe-experience-list li {
-  margin-bottom: 8px;
-}
 
 .uxe-case-link {
   color: #555;
@@ -2352,12 +2339,21 @@ margin-bottom: 30px;
 }
 
 /* Work entries: identity column on the left, substance on the right */
-.uxe-project-id h3 {
+.uxe-project-copy h3 {
   margin-top: 0;
 }
 
-.uxe-project-id .uxe-role span {
-  display: block;
+/* The role line reads as one scannable strip rather than a stacked
+   block, now that it sits beside the summary instead of under the tile. */
+.uxe-project-copy .uxe-role {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-bottom: 16px;
+}
+
+.uxe-project-copy .uxe-summary {
+  margin-top: 0;
 }
 
 /* Case-study fact strip — shared by may.html and accessible-player.html */
@@ -2392,11 +2388,11 @@ margin-bottom: 30px;
    judgement. They sit above the identity block in the left column. */
 .uxe-motion-tile {
   align-items: center;
-  background: #fff;
+  aspect-ratio: 16 / 10;
+  background: var(--uxe-surface);
   border: 1px solid var(--uxe-rule);
   display: flex;
   justify-content: center;
-  min-height: 190px;
   overflow: hidden;
   padding: 24px;
   position: relative;
@@ -2606,5 +2602,33 @@ margin-bottom: 30px;
 
   .uxe-tags {
     margin-top: 20px;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   One line per role, not the resume again.
+
+   The three work entries carried thirteen bullets copied verbatim from
+   the resume — 244 of the homepage's 566 words, sitting two lines below
+   a link to the resume itself. A portfolio that restates the resume is
+   a worse version of a document the reader already has, and it spends
+   the space that should be showing work. Each role keeps one sentence;
+   the detail lives on the case page and in the PDF.
+   --------------------------------------------------------------- */
+
+.uxe-summary {
+  color: #000;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0 0 18px;
+  max-width: 46ch;
+}
+
+@media (max-width: 900px) {
+  .uxe-project-card {
+    gap: 22px;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
