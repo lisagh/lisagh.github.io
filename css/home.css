@@ -92,87 +92,88 @@ a {
 }
 
 /* ---------------------------------------------------------------
-   One visual language for the four marks.
+   Real imagery, not abstract marks.
 
-   Borrowed imagery gave four different registers — a flat mascot, a
-   dark UI screenshot, a photographic cutout and a diagram — which read
-   as a collage however the grounds were coloured. ValuHome has no
-   public asset at all, so "real image everywhere" was never available.
+   The marks were consistent but they did not say what any of the work
+   WAS — a hiring manager reading five dots learns nothing. Every card
+   now carries a real screenshot: the player demo and the two live
+   products are shot from the running thing, and May uses its brand
+   sheet, which is the deliverable I actually made there. May's product
+   UI stays out of it; the product is in closed beta.
 
-   Instead every card carries a bespoke abstract mark in the same
-   language the work entries above already use: black on the site
-   neutral, exactly one element in the accent, one shared canvas, one
-   timing family. Each encodes the project's actual idea rather than
-   decorating it. The real brand assets live on the case pages, where
-   they belong.
+   Hierarchy follows what the roles are hiring for. May (AI) and the
+   player (accessibility) run full width with the image beside the copy;
+   the other two sit in a normal two-up row.
    --------------------------------------------------------------- */
 
-.proj-visual { background: var(--uxe-surface); }
-
-.mark {
-  display: block;
-  height: 78%;
-  width: 78%;
+.proj-visual {
+  background: var(--uxe-surface);
 }
 
-.m-accent { fill: var(--uxe-accent); }
-.m-ink    { fill: var(--uxe-text); }
-.m-rule   { stroke: #d8d8d8; stroke-width: 1.5; fill: none; }
-
-/* May — five character states, animated at the five real loop
-   durations from the motion spec: 3.6s idle, 4s thinking, 1.1s
-   building, 1.6s success, 5s resting. */
-.m-state { fill: var(--uxe-text); animation: mState 3.6s cubic-bezier(.4,0,.2,1) infinite; }
-.m-state-2 { animation-duration: 4s; }
-.m-state-3 { animation-duration: 1.1s; }
-.m-state-4 { animation-duration: 1.6s; fill: var(--uxe-accent); }
-.m-state-5 { animation-duration: 5s; }
-
-@keyframes mState {
-  0%, 100% { transform: translateY(5px); }
-  50%      { transform: translateY(-5px); }
+.proj-visual img {
+  object-position: top;   /* screenshots are framed from the top edge */
 }
 
-/* Player — a seek bar: the fill grows, the thumb rides it, chapter
-   ticks stay put. */
-.m-fill  { fill: var(--uxe-text); transform-origin: 16px 50px; animation: mSeek 3.2s cubic-bezier(.4,0,.2,1) infinite; }
-.m-thumb { fill: var(--uxe-accent); animation: mThumb 3.2s cubic-bezier(.4,0,.2,1) infinite; }
-.m-tick  { fill: var(--uxe-surface); }
+.proj-wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+}
 
-@keyframes mSeek  { 0% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
-@keyframes mThumb { 0% { transform: translateX(0); } 70%, 100% { transform: translateX(112px); } }
+.proj-wide .proj-visual {
+  aspect-ratio: auto;
+  border-bottom: 0;
+  border-right: 1px solid var(--uxe-rule);
+}
 
-/* ValuHome — a valuation rising to a located property. */
-.m-bar { fill: var(--uxe-text);
-         /* percentage transform-origin on an SVG element resolves against the
-            viewBox unless transform-box is set, so each bar was scaling from the
-            bottom of the whole canvas and sliding below the axis. */
-         transform-box: fill-box; transform-origin: 50% 100%; animation: mRise 2.8s cubic-bezier(.4,0,.2,1) infinite; }
-.m-bar-2 { animation-delay: .16s; }
-.m-bar-3 { animation-delay: .32s; }
-.m-bar-4 { animation-delay: .48s; fill: var(--uxe-accent); }
-.m-pin   { fill: var(--uxe-accent); animation: mPulse 2.8s ease-in-out infinite; }
+/* The body is a column so the copy sits optically centred against a
+   tall image, and so every card's name/role/description start on the
+   same baseline regardless of how many lines the role row takes. */
+.proj-body {
+  display: flex;
+  flex-direction: column;
+}
 
-@keyframes mRise  { 0%, 10% { transform: scaleY(.3); } 45%, 90% { transform: scaleY(1); } 100% { transform: scaleY(.3); } }
-@keyframes mPulse { 0%, 100% { opacity: .3; } 55% { opacity: 1; } }
+.proj-wide .proj-body {
+  justify-content: center;
+  padding: 30px 32px;
+}
 
-/* PawPath — a route drawn between check-ins. */
-.m-route { stroke: #cfcfcf; stroke-width: 2.5; fill: none; stroke-linecap: round; }
-.m-trace { stroke: var(--uxe-text); stroke-width: 2.5; fill: none; stroke-linecap: round;
-           stroke-dasharray: 48 200; animation: mTrace 3.4s cubic-bezier(.4,0,.2,1) infinite; }
-.m-node  { fill: var(--uxe-text); }
-.m-node-end { fill: var(--uxe-accent); animation: mPulse 3.4s ease-in-out infinite; }
+/* One label slot per card, always the first line of the body. PawPath
+   previously put its award inline in the role row, which made that row
+   taller and knocked its name and description out of line with the
+   card beside it. */
+.proj-tag {
+  align-self: flex-start;
+  border: 1px solid currentColor;
+  color: var(--uxe-accent);
+  font-family: Montserrat, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  margin: 0 0 12px;
+  padding: 4px 9px;
+  text-transform: uppercase;
+}
 
-/* The route is always drawn; a lit segment travels along it. Animating
-   the whole path's dashoffset left the mark invisible at rest, which
-   reads as a broken image on load. */
-@keyframes mTrace { from { stroke-dashoffset: 248; } to { stroke-dashoffset: 0; } }
+.proj-tag-award {
+  color: var(--uxe-text);
+}
 
-@media (prefers-reduced-motion: reduce) {
-  .m-state, .m-fill, .m-thumb, .m-bar, .m-pin, .m-trace, .m-node-end { animation: none; }
-  .m-trace { stroke-dasharray: none; }
-  .m-fill  { transform: scaleX(1); }
-  .m-thumb { transform: translateX(112px); }
+@media (max-width: 760px) {
+  .proj-wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .proj-wide .proj-visual {
+    aspect-ratio: 16 / 10;
+    border-bottom: 1px solid var(--uxe-rule);
+    border-right: 0;
+  }
+
+  .proj-wide .proj-body {
+    padding: 18px 20px 22px;
+  }
 }
 
 @media (max-width: 640px) {

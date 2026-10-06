@@ -2402,108 +2402,38 @@ margin-bottom: 30px;
   position: relative;
 }
 
-.uxe-motion-tile span {
-  background: #000;
+/* The HBO and Deere tiles used to be absolutely-positioned <span>s with
+   percentage offsets and pixel sizes. Those two unit systems scale at
+   different rates, so as the tile narrowed the pieces drifted apart —
+   on a 390px screen the Deere wheels (one of them faked with a
+   box-shadow, so they were never even the same shape) came away from
+   the body entirely. Both tiles are SVG with a viewBox now, like the
+   eBay one, which has always scaled correctly. Geometry cannot drift. */
+
+.uxe-tile-svg {
   display: block;
-  position: absolute;
-}
-
-.uxe-motion-system span:nth-child(1) {
-  background: #000;
-  height: 92px;
-  left: 18%;
-  top: 24%;
-  width: 64%;
-}
-
-.uxe-motion-system span:nth-child(2) {
-  background: var(--uxe-accent);
-  clip-path: polygon(0 0, 0 100%, 100% 50%);
-  height: 24px;
-  left: 48%;
-  top: 43%;
-  width: 20px;
-}
-
-.uxe-motion-system span:nth-child(3) {
-  background: #000;
-  height: 2px;
-  left: 24%;
-  top: 78%;
-  width: 52%;
-}
-
-.uxe-motion-system span:nth-child(3)::after {
-  animation: uxeProgress 4s linear infinite;
-  background: var(--uxe-accent);
-  content: "";
-  height: 2px;
-  left: 0;
-  position: absolute;
-  top: 0;
+  height: 100%;
   width: 100%;
 }
 
-.uxe-motion-embedded span:nth-child(1) {
-  background: #000;
-  height: 48px;
-  left: 30%;
-  top: 40%;
-  width: 46%;
-}
+.t-screen  { fill: #000; }
+.t-play    { fill: var(--uxe-accent); }
+.t-track   { fill: #d8d8d8; }
+.t-progress{ fill: var(--uxe-accent); transform-box: fill-box; transform-origin: left center;
+             animation: uxeProgress 4s linear infinite; }
 
-.uxe-motion-embedded span:nth-child(1)::before,
-.uxe-motion-embedded span:nth-child(1)::after {
-  background: var(--uxe-accent);
-  content: "";
-  position: absolute;
-}
+.t-panel       { fill: none; stroke: #000; stroke-width: 2.5; }
+.t-gauge-track { fill: none; stroke: #d8d8d8; stroke-width: 7; stroke-linecap: round; }
+.t-gauge       { fill: none; stroke: var(--uxe-accent); stroke-width: 7; stroke-linecap: round;
+                 stroke-dasharray: 1; animation: uxeSweep 3.6s cubic-bezier(.4,0,.2,1) infinite; }
+.t-ink         { fill: #000; }
+.t-signal      { fill: var(--uxe-accent); transform-box: fill-box; transform-origin: center;
+                 animation: uxeSignal 3.2s ease-in-out infinite; }
 
-.uxe-motion-embedded span:nth-child(1)::before {
-  clip-path: polygon(0 100%, 16% 0, 100% 0, 100% 100%);
-  height: 30px;
-  left: -28px;
-  top: -22px;
-  width: 54px;
-}
-
-.uxe-motion-embedded span:nth-child(1)::after {
-  animation: uxeSignal 3.2s ease-in-out infinite;
-  border-radius: 50%;
-  height: 10px;
-  right: 10px;
-  top: 10px;
-  width: 10px;
-}
-
-.uxe-motion-embedded span:nth-child(2) {
-  background: transparent;
-  border: 8px solid #000;
-  border-radius: 50%;
-  box-shadow: 72px 4px 0 -2px #000;
-  height: 54px;
-  left: 30%;
-  top: 60%;
-  width: 54px;
-}
-
-.uxe-motion-embedded span:nth-child(3) {
-  background: var(--uxe-accent);
-  height: 5px;
-  left: 16%;
-  top: 62%;
-  width: 38%;
-}
-
-.uxe-motion-embedded span:nth-child(3)::before {
-  background: #000;
-  content: "";
-  height: 20px;
-  left: -10px;
-  position: absolute;
-  top: -8px;
-  transform: skewX(-24deg);
-  width: 42px;
+@keyframes uxeSweep {
+  0%, 8%    { stroke-dashoffset: 1; }
+  55%, 92%  { stroke-dashoffset: 0.28; }
+  100%      { stroke-dashoffset: 1; }
 }
 
 .uxe-chart-svg {
@@ -2577,14 +2507,8 @@ margin-bottom: 30px;
   fill: var(--uxe-accent);
 }
 @keyframes uxeProgress {
-  0% {
-    transform: scaleX(0);
-    transform-origin: left center;
-  }
-  100% {
-    transform: scaleX(1);
-    transform-origin: left center;
-  }
+  0%        { transform: scaleX(0); }
+  70%, 100% { transform: scaleX(1); }
 }
 @keyframes uxeCampaignBar {
   0% {

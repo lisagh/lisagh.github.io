@@ -162,10 +162,13 @@
             <div class="uxe-project-grid">
                <article class="uxe-project-card uxe-featured-card">
                   <div class="uxe-project-id">
-                     <div class="uxe-motion-tile uxe-motion-system" aria-hidden="true">
-                     <span></span>
-                     <span></span>
-                     <span></span>
+                     <div class="uxe-motion-tile" aria-hidden="true">
+                        <svg class="uxe-tile-svg" viewBox="0 0 240 140" preserveAspectRatio="xMidYMid meet">
+                           <rect class="t-screen" x="40" y="22" width="160" height="76"/>
+                           <path class="t-play" d="M110 48 L110 72 L132 60 Z"/>
+                           <rect class="t-track" x="40" y="112" width="160" height="2.5"/>
+                           <rect class="t-progress" x="40" y="112" width="160" height="2.5"/>
+                        </svg>
                      </div>
                      <h3>HBO Max</h3>
                      <p class="uxe-role"><span>Software Engineer II</span><span>Bellevue, WA</span><span>Nov 2021 &ndash; Present</span></p>
@@ -223,10 +226,17 @@
 
                <article class="uxe-project-card">
                   <div class="uxe-project-id">
-                     <div class="uxe-motion-tile uxe-motion-embedded" aria-hidden="true">
-                     <span></span>
-                     <span></span>
-                     <span></span>
+                     <div class="uxe-motion-tile" aria-hidden="true">
+                        <svg class="uxe-tile-svg" viewBox="0 0 240 140" preserveAspectRatio="xMidYMid meet">
+                           <rect class="t-panel" x="38" y="22" width="164" height="96" rx="3"/>
+                           <path class="t-gauge-track" d="M62 92 A30 30 0 0 1 122 92"/>
+                           <path class="t-gauge" d="M62 92 A30 30 0 0 1 122 92" pathLength="1"/>
+                           <rect class="t-ink" x="140" y="46" width="44" height="5"/>
+                           <rect class="t-ink" x="140" y="60" width="32" height="5"/>
+                           <rect class="t-ink" x="140" y="74" width="38" height="5"/>
+                           <rect class="t-ink" x="62" y="104" width="120" height="3"/>
+                           <circle class="t-signal" cx="184" cy="34" r="5"/>
+                        </svg>
                      </div>
                      <h3>John Deere</h3>
                      <p class="uxe-role"><span>UX Designer, contract</span><span>Moline, IL</span><span>Dec 2018 &ndash; Jul 2019</span></p>
@@ -250,73 +260,55 @@
                <h2>Products and prototypes I founded, built, or helped shape beyond my day-to-day product work.</h2>
             </div>
             <div class="proj-grid">
-               <a class="proj" href="may.html">
+               <a class="proj proj-wide" href="may.html">
                   <div class="proj-visual">
-                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="Five marks pulsing at five different speeds, one per character state">
-                        <circle class="m-state m-state-1" cx="26"  cy="50" r="8"/>
-                        <circle class="m-state m-state-2" cx="53"  cy="50" r="8"/>
-                        <circle class="m-state m-state-3" cx="80"  cy="50" r="8"/>
-                        <circle class="m-state m-state-4" cx="107" cy="50" r="8"/>
-                        <circle class="m-state m-state-5" cx="134" cy="50" r="8"/>
-                     </svg>
+                     <img src="img/cards/may.jpg" width="1400" height="875" loading="lazy" decoding="async"
+                          alt="May brand sheet: the May wordmark above the tagline Make apps yourself, with the five character states below it &mdash; default, happy, thinking, typing and resting.">
                   </div>
                   <div class="proj-body">
+                     <p class="proj-tag">AI product</p>
                      <span class="proj-name">May <span class="proj-go" aria-hidden="true">&rarr;</span></span>
-                     <p class="proj-role"><span>Brand &amp; Motion System</span><span>Zhenfy</span></p>
-                     <p class="proj-desc">Brand identity, five character states, and the motion specification that carries system state across Zhenfy&rsquo;s app-building product. Case study with live loops.</p>
+                     <p class="proj-role"><span>Brand &amp; motion system</span><span>Zhenfy</span></p>
+                     <p class="proj-desc">Zhenfy&rsquo;s AI app builder &mdash; turn an idea into a working app without writing code. I designed the brand, the five character states, and the motion specification that keeps the assistant readable while it thinks and builds.</p>
                   </div>
                </a>
 
-               <a class="proj" href="accessible-player.html">
+               <a class="proj proj-wide" href="accessible-player.html">
                   <div class="proj-visual">
-                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="A seek bar filling, with chapter ticks and a travelling thumb">
-                        <rect class="m-rule" x="16" y="48" width="128" height="4" rx="2" stroke="none" fill="#dcdcdc"/>
-                        <rect class="m-fill" x="16" y="48" width="128" height="4" rx="2"/>
-                        <rect class="m-tick" x="52"  y="46" width="2.5" height="8"/>
-                        <rect class="m-tick" x="88"  y="46" width="2.5" height="8"/>
-                        <rect class="m-tick" x="118" y="46" width="2.5" height="8"/>
-                        <circle class="m-thumb" cx="16" cy="50" r="8"/>
-                     </svg>
+                     <img src="img/cards/player.jpg" width="1400" height="875" loading="lazy" decoding="async"
+                          alt="The player demo: a dark video transport bar with a seek slider and chapter ticks, above a legend mapping every keyboard shortcut &mdash; play, seek, volume, captions and mute.">
                   </div>
                   <div class="proj-body">
+                     <p class="proj-tag">Accessibility</p>
                      <span class="proj-name">Accessible Player Controls <span class="proj-go" aria-hidden="true">&rarr;</span></span>
-                     <p class="proj-role"><span>Working demo</span></p>
-                     <p class="proj-desc">A keyboard-operable video transport control with screen-reader announcements &mdash; a public recreation of the interaction problems behind confidential streaming work. Try it in the browser.</p>
+                     <p class="proj-role"><span>Working demo</span><span>Vanilla JS, no dependencies</span></p>
+                     <p class="proj-desc">A video transport control that runs entirely from the keyboard and announces itself correctly to a screen reader &mdash; the seek bar speaks time, not a percentage. Tab into it and try the keys.</p>
                   </div>
                </a>
 
                <a class="proj" href="https://valu-home.com/search" target="_blank" rel="noopener">
                   <div class="proj-visual">
-                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="A valuation rising to a located property">
-                        <path class="m-rule" d="M22 78h116M22 22v56"/>
-                        <rect class="m-bar m-bar-1" x="38"  y="54" width="14" height="24"/>
-                        <rect class="m-bar m-bar-2" x="62"  y="46" width="14" height="32"/>
-                        <rect class="m-bar m-bar-3" x="86"  y="38" width="14" height="40"/>
-                        <rect class="m-bar m-bar-4" x="110" y="28" width="14" height="50"/>
-                        <circle class="m-pin" cx="117" cy="18" r="6"/>
-                     </svg>
+                     <img src="img/cards/valuhome.jpg" width="1400" height="875" loading="lazy" decoding="async"
+                          alt="ValuHome AI: a property address search with an Analyze button, above cards for the AI home value estimator and the AI property valuation tool.">
                   </div>
                   <div class="proj-body">
+                     <p class="proj-tag">AI product</p>
                      <span class="proj-name">ValuHome <span class="proj-go" aria-hidden="true">&#8599;</span></span>
                      <p class="proj-role"><span>Founder / Builder</span></p>
-                     <p class="proj-desc">AI-powered real estate search and valuation tool. Designed and built the web experience, including search flow, data presentation, and product UI.</p>
+                     <p class="proj-desc">AI property valuation and real estate search. I designed and built the web experience &mdash; search flow, data presentation, and product UI.</p>
                   </div>
                </a>
 
                <a class="proj" href="https://mypawpath.github.io/" target="_blank" rel="noopener">
                   <div class="proj-visual">
-                     <svg class="mark" viewBox="0 0 160 100" role="img" aria-label="A route drawn between check-in points">
-                        <path class="m-route" d="M24 74C52 74 48 32 80 32s30 36 56 16"/>
-                        <path class="m-trace" d="M24 74C52 74 48 32 80 32s30 36 56 16"/>
-                        <circle class="m-node" cx="24" cy="74" r="5.5"/>
-                        <circle class="m-node" cx="80" cy="32" r="5.5"/>
-                        <circle class="m-node-end" cx="136" cy="48" r="6.5"/>
-                     </svg>
+                     <img src="img/cards/pawpath.jpg" width="1400" height="875" loading="lazy" decoding="async"
+                          alt="PawPath shelter dashboard on a desktop screen, showing check-in completion rate, wellbeing trends over six months, and a needs-attention case list.">
                   </div>
                   <div class="proj-body">
+                     <p class="proj-tag proj-tag-award">Red Dot Award 2026</p>
                      <span class="proj-name">PawPath <span class="proj-go" aria-hidden="true">&#8599;</span></span>
-                     <p class="proj-role"><span>Engineering Lead</span><span class="uxe-award">Red Dot Award 2026</span></p>
-                     <p class="proj-desc">Post-adoption care platform for shelters and adopters, focused on check-ins, case follow-up, and trusted guidance. Winner of the Red Dot Award 2026 in Brands &amp; Communication Design.</p>
+                     <p class="proj-role"><span>Engineering Lead</span></p>
+                     <p class="proj-desc">Post-adoption care platform for shelters and adopters &mdash; weekly check-ins, case follow-up, and wellbeing monitoring. Red Dot Award 2026, Brands &amp; Communication Design.</p>
                   </div>
                </a>
             </div>
