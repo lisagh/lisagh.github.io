@@ -45,3 +45,143 @@ a {
     display: block !important;
   }
 }
+
+/* ---------------------------------------------------------------
+   Selected Projects as cards.
+   The section was seven lines of plain text — the dullest block on a
+   page that has to demonstrate visual judgement. Each project now
+   carries a visual: a real asset where one exists, and the same
+   abstract motion language used by the work entries where one does
+   not, rather than inventing a screenshot.
+   --------------------------------------------------------------- */
+
+.proj-grid {
+  display: grid;
+  gap: clamp(22px, 2.6vw, 32px);
+  grid-template-columns: repeat(auto-fit, minmax(266px, 1fr));
+  margin-top: 8px;
+}
+
+.proj {
+  border: 1px solid var(--uxe-rule);
+  color: var(--uxe-text);          /* without this the card title took the browser's link blue */
+  display: flex;
+  flex-direction: column;
+  transition: border-color 220ms ease, transform 220ms ease;
+}
+
+.proj:hover {
+  border-color: var(--uxe-text);
+  transform: translateY(-3px);
+}
+
+.proj-visual {
+  align-items: center;
+  aspect-ratio: 16 / 10;
+  border-bottom: 1px solid var(--uxe-rule);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.proj-visual img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* May — the brand's own lavender, with the character sitting in it */
+.proj-visual-may { background: #E9DDFB; }
+.proj-visual-may img {
+  height: 86%;
+  object-fit: contain;
+  width: auto;
+}
+
+/* PawPath — her own hero cutout on a warm ground */
+.proj-visual-paw { background: #F4EFE8; }
+.proj-visual-paw img { object-fit: contain; height: 88%; width: auto; }
+
+/* Player — the rendered control bar plus its keyboard legend */
+.proj-visual-player { background: #fff; }
+
+/* ValuHome has no public imagery, so it gets the abstract treatment the
+   work entries already established rather than a fabricated screenshot. */
+.proj-visual-valu { background: #fff; }
+
+.vh {
+  display: block;
+  height: 72%;
+  width: 72%;
+}
+
+.vh-grid line { stroke: var(--uxe-rule); stroke-width: 1; }
+.vh-bar {
+  fill: var(--uxe-text);
+  transform-origin: 50% 100%;
+  animation: vhRise 2.8s cubic-bezier(.4, 0, .2, 1) infinite;
+}
+.vh-bar:nth-of-type(2) { animation-delay: .18s; }
+.vh-bar:nth-of-type(3) { animation-delay: .36s; }
+.vh-bar:nth-of-type(4) { animation-delay: .54s; fill: var(--uxe-accent); }
+.vh-pin {
+  fill: var(--uxe-accent);
+  animation: vhPulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes vhRise {
+  0%, 12%  { transform: scaleY(.35); }
+  46%, 88% { transform: scaleY(1); }
+  100%     { transform: scaleY(.35); }
+}
+
+@keyframes vhPulse {
+  0%, 100% { opacity: .35; }
+  50%      { opacity: 1; }
+}
+
+.proj-body { padding: 18px 20px 22px; }
+
+.proj-name {
+  display: block;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.proj-role {
+  align-items: baseline;
+  color: #777;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  gap: 8px;
+  letter-spacing: 0.09em;
+  margin: 7px 0 0;
+  text-transform: uppercase;
+}
+
+.proj-desc {
+  color: #555;
+  font-family: "Open Sans", Arial, sans-serif;   /* body font is `lato`, which is not loaded; the fallback is a serif */
+  font-size: 0.9rem;
+  line-height: 1.58;
+  margin: 11px 0 0;
+}
+
+.proj-go {
+  color: #777;
+  font-size: 0.95rem;
+  margin-left: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vh-bar, .vh-pin { animation: none; }
+  .proj:hover { transform: none; }
+}

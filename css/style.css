@@ -2629,3 +2629,57 @@ margin-bottom: 30px;
 .uxe-project-id .uxe-motion-tile {
   margin-bottom: 18px;
 }
+
+/* ---------------------------------------------------------------
+   Mobile type scale.
+
+   The lede was a flat 1.35rem at every viewport, so on a 390px screen
+   it ran six enormous lines and outweighed the name above it — the
+   hierarchy read backwards. Section padding was fixed at desktop
+   values too, which put roughly 150px of nothing above the first line
+   of content. Type and rhythm now scale with the viewport.
+   --------------------------------------------------------------- */
+
+.uxe-lede {
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem);
+}
+
+@media (max-width: 768px) {
+  .uxe-hero {
+    padding-top: 40px;
+    padding-bottom: 52px;
+  }
+
+  .uxe-section {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  .uxe-case,
+  .uxe-case-hero {
+    padding-top: 28px;
+  }
+
+  .uxe-case-section {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .uxe-section-header {
+    margin-bottom: 22px;
+  }
+
+  .uxe-section-header h2,
+  .uxe-contact h2,
+  .uxe-case-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .uxe-hero h1 {
+    margin-top: 10px;
+  }
+
+  .uxe-tags {
+    margin-top: 20px;
+  }
+}
