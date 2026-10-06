@@ -1872,6 +1872,14 @@ margin-bottom: 30px;
   margin-top: 28px;
 }
 
+/* The eight skills split four engineering / four design, so the row is
+   broken deliberately at that seam rather than wherever the viewport
+   happens to run out. Otherwise the last tag orphans on its own line. */
+.uxe-tag-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
 .uxe-tags span {
   border: 1px solid var(--uxe-rule);
   border-radius: 999px;
