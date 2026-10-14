@@ -160,7 +160,13 @@ a {
   color: var(--uxe-text);
 }
 
-@media (max-width: 760px) {
+/* Stack the featured cards at 900, not 760. Between those two widths
+   they stayed side by side with roughly 390px per column — narrower
+   than the 16:10 screenshots inside them, so object-fit: cover sliced
+   the left and right off the player's keyboard legend. 900 also lines
+   up with where the work entries stack, so the whole page changes
+   layout at one width instead of two. */
+@media (max-width: 900px) {
   .proj-wide {
     grid-template-columns: minmax(0, 1fr);
   }

@@ -2189,10 +2189,9 @@ margin-bottom: 30px;
     grid-template-columns: 1fr;
   }
 
-  .uxe-project-card {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
+  /* The work entry used to stack here too. That rule is gone — a
+     second, identical one lower down was silently fighting it, and
+     these entries now hold two columns to 700. */
 
   /* The cards stack here. Keep them left-aligned to match the
      two-column layout above; the old centring existed to balance the
@@ -2646,9 +2645,21 @@ margin-bottom: 30px;
   max-width: 46ch;
 }
 
-@media (max-width: 900px) {
+/* The work tile is an SVG, so it survives a narrow column that a
+   fixed-ratio screenshot would not — which is why these entries hold
+   two columns down to 700 while the featured project cards stack at
+   900. Stacking them at 900 left a one-sentence summary alone in a
+   780px-wide column with the right half of the page empty. */
+@media (max-width: 700px) {
   .uxe-project-card {
     gap: 22px;
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* With the full column to itself the tile would be 660x412 — bigger
+     than it ever is on desktop, making an abstract decoration the
+     largest thing on the page. */
+  .uxe-project-id {
+    max-width: 460px;
   }
 }
