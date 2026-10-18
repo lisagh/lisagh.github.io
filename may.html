@@ -1,202 +1,1265 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <title>May — Brand and Motion System | Lisha Chen</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Brand identity, character system, and motion specification for May, the app-building product at Zhenfy.">
-      <link href="img/favicon.png" rel="icon">
-      <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,400,700" rel="stylesheet">
-      <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-      <link href="css/card.css" rel="stylesheet">
-      <link href="css/style.css" rel="stylesheet">
-      <link href="css/may.css" rel="stylesheet">
-      <link rel="canonical" href="https://lisagh.github.io/may.html">
-      <meta property="og:type" content="article">
-      <meta property="og:site_name" content="Lisha Chen">
-      <meta property="og:url" content="https://lisagh.github.io/may.html">
-      <meta property="og:title" content="May — Brand and Motion System">
-      <meta property="og:description" content="Brand identity, character system, and motion specification for May, the app-building product at Zhenfy.">
-      <meta property="og:image" content="https://lisagh.github.io/img/og-card.png">
-      <meta property="og:image:width" content="1200">
-      <meta property="og:image:height" content="630">
-      <meta property="og:image:alt" content="Lisha Chen — Engineer + Designer. A software engineer who designs.">
-      <meta name="twitter:card" content="summary_large_image">
-   </head>
-   <body>
-      <header id="header">
-         <div class="container col-lg-8 col-md-10 col-centered">
-            <nav id="nav-menu-container">
-               <ul class="nav-menu">
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="LishaChenResume.pdf" target="_blank">Resume</a></li>
-               </ul>
-            </nav>
-         </div>
-      </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>May Motion &amp; Character States | Lisha Chen</title>
+    <meta name="description" content="May's motion and character states, with live loading animations and an interactive state demo." />
+    <link rel="canonical" href="https://lisagh.github.io/may.html" />
+    <link rel="icon" href="img/favicon.png" />
+    <style>
+      :root {
+        --bg: #faf8ff; /* Off White */
+        --surface: #ffffff;
+        --fg: #1f1f23; /* Charcoal */
+        --muted: #6b6880;
+        --border: #e9ddfb; /* Lavender */
+        --accent: #a78bfa; /* Periwinkle */
 
-      <main class="uxe-case container col-lg-8 col-md-10 col-centered">
-         <section class="uxe-case-hero">
-            <p class="uxe-kicker uxe-breadcrumb"><a href="index.html">Home</a><span>/</span>May</p>
-            <h1>A character that tells you what the system is doing.</h1>
-            <p class="uxe-lede">May is the app-building product at Zhenfy. I designed its brand identity and the character system that carries state across the product &mdash; six states, five loops, and one rule about when the character is not allowed to appear at all.</p>
+        --accent-ink: color-mix(in oklch, var(--accent) 62%, black);
+        --accent-soft: color-mix(in oklch, var(--accent) 16%, transparent);
+        --fg-soft: color-mix(in oklch, var(--fg) 5%, transparent);
 
-            <figure class="may-hero-logo">
-               <img src="img/may/logo-lockup.svg" alt="The May logo: a character head beside the word May, with the tagline Make Apps Yourself">
-            </figure>
+        --font-display:
+          ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", system-ui, sans-serif;
+        --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        --font-mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, monospace;
 
-            <dl class="case-facts">
-               <div><dt>Role</dt><dd>Design Lead / Frontend</dd></div>
-               <div><dt>Client</dt><dd>Zhenfy LLC</dd></div>
-               <div><dt>Scope</dt><dd>Identity, character system, motion spec</dd></div>
-               <div><dt>Year</dt><dd>2026</dd></div>
-            </dl>
-         </section>
+        /* motion tokens — the whole system runs on these five */
+        --dur-quick: 180ms; /* state swaps, button feedback */
+        --dur-calm: 900ms; /* entrances */
+        --loop-breathe: 3.6s; /* idle and resting */
+        --loop-think: 4s; /* waiting and generating */
+        --loop-work: 1.1s; /* building and typing */
+        --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);
+        --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
 
-         <section class="uxe-case-section">
-            <h2>The problem</h2>
-            <p>May generates software. That means most of what it does is invisible and slow &mdash; a brief being written, a build running, a version publishing. The interface spends a lot of its life asking the user to wait without being able to say how long.</p>
-            <p>A progress bar does not help here, because there is no honest percentage to show. So the question became: what can carry the feeling of &ldquo;something is happening, and it is going fine&rdquo; without lying about progress?</p>
-            <p class="may-pullquote">A fake percentage is worse than none.</p>
-         </section>
+        --fs-h1: 58px;
+        --fs-h2: 36px;
+        --gap-md: 20px;
+        --gap-lg: 32px;
+        --gap-xl: 56px;
+        --container: 1180px;
+        --gutter: 32px;
+        --radius: 12px;
+        --radius-lg: 20px;
+      }
 
-         <section class="uxe-case-section">
-            <h2>The identity</h2>
-            <p>A charcoal character head with a looped cowlick, paired with heavy soft lettering. The mark had to work at 1024px as an app icon and at 24px in a product header, so the symbol is drawn to survive on its own without the wordmark.</p>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      p {
+        margin: 0;
+        text-wrap: pretty;
+      }
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: var(--font-display);
+        text-wrap: balance;
+      }
+      h1 {
+        font-size: var(--fs-h1);
+        font-weight: 700;
+        letter-spacing: 0;
+        line-height: 1.05;
+      }
+      h2 {
+        font-size: var(--fs-h2);
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+      h3 {
+        font-size: 17px;
+        font-weight: 650;
+        letter-spacing: 0;
+      }
 
-            <div class="may-brand-grid">
-               <figure>
-                  <div class="may-swatch-frame"><img src="img/may/app-icon.png" alt="The May app icon: the character head on a lavender rounded square"></div>
-                  <figcaption>App icon &mdash; symbol only, 1024px source</figcaption>
-               </figure>
-               <figure>
-                  <div class="may-swatch-frame may-swatch-frame-dark"><img src="img/may/symbol.svg" alt="The May symbol in monochrome" class="may-symbol-invert"></div>
-                  <figcaption>Symbol &mdash; monochrome, no pink, works on either ground</figcaption>
-               </figure>
+      .container {
+        max-width: var(--container);
+        margin-inline: auto;
+        padding-inline: var(--gutter);
+      }
+      .section {
+        padding-block: clamp(40px, 5vw, 72px);
+      }
+      .section + .section {
+        border-top: 1px solid var(--border);
+      }
+      .row-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--gap-md);
+        flex-wrap: wrap;
+      }
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--gap-lg);
+      }
+      .grid-2 > *,
+      .grid-3 > * {
+        min-width: 0;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap-lg);
+      }
+      @media (max-width: 920px) {
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        :root { --fs-h1: 38px; --fs-h2: 28px; --gutter: 20px; }
+        .topnav-inner { flex-wrap: wrap; }
+        .home-link { font-size: 14px; }
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        margin: 0 0 14px;
+      }
+      .lead {
+        font-size: 18px;
+        color: var(--muted);
+        max-width: 64ch;
+      }
+      .meta {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--border);
+        background: color-mix(in oklch, var(--bg) 88%, transparent);
+        backdrop-filter: blur(12px);
+      }
+      .topnav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-block: 12px;
+        gap: var(--gap-md);
+      }
+      .topnav img {
+        height: 26px;
+        width: auto;
+      }
+      .topnav nav {
+        display: flex;
+        gap: 26px;
+      }
+      .topnav nav a {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .topnav nav a:hover {
+        color: var(--fg);
+      }
+      @media (max-width: 760px) {
+        .topnav nav {
+          display: none;
+        }
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 11px 18px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 600;
+        background: var(--accent-ink);
+        color: var(--surface);
+        border: 0;
+        cursor: pointer;
+        font-family: inherit;
+        transition:
+          background var(--dur-quick) var(--ease-calm),
+          transform 60ms;
+      }
+      .btn:hover {
+        background: color-mix(in oklch, var(--accent-ink) 86%, black);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn-quiet {
+        background: transparent;
+        color: var(--fg);
+        border: 1px solid var(--border);
+      }
+      .btn-quiet:hover {
+        background: var(--accent-soft);
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+      }
+      .card-body {
+        padding: 18px 22px 22px;
+      }
+      .stage {
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        min-height: 240px;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ─── character animations ──────────────────────────────────────────── */
+      .toon {
+        width: auto;
+        height: 150px;
+        transform-origin: 50% 100%;
+        will-change: transform;
+      }
+
+      @keyframes may-breathe {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-4px) scale(1.015);
+        }
+      }
+      @keyframes may-think {
+        0%,
+        100% {
+          transform: rotate(-2.2deg) translateY(0);
+        }
+        50% {
+          transform: rotate(2.2deg) translateY(-3px);
+        }
+      }
+      @keyframes may-work {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-0.6deg);
+        }
+        50% {
+          transform: translateY(-3px) rotate(0.6deg);
+        }
+      }
+      @keyframes may-hop {
+        0% {
+          transform: translateY(0) scale(1);
+        }
+        35% {
+          transform: translateY(-18px) scale(1.04);
+        }
+        60% {
+          transform: translateY(0) scale(0.97);
+        }
+        75% {
+          transform: translateY(-6px) scale(1.01);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes may-rest {
+        0%,
+        100% {
+          transform: rotate(-7deg) translateY(0) scale(1);
+        }
+        50% {
+          transform: rotate(-7deg) translateY(-2px) scale(1.01);
+        }
+      }
+
+      .toon.is-idle {
+        animation: may-breathe var(--loop-breathe) var(--ease-calm) infinite;
+      }
+      .toon.is-think {
+        animation: may-think var(--loop-think) var(--ease-calm) infinite;
+      }
+      .toon.is-work {
+        animation: may-work var(--loop-work) var(--ease-calm) infinite;
+      }
+      .toon.is-happy {
+        animation: may-hop 1.6s var(--ease-spring) infinite;
+      }
+      .toon.is-rest {
+        animation: may-rest 5s var(--ease-calm) infinite;
+        filter: saturate(0.75);
+        opacity: 0.92;
+      }
+
+      /* floating marks that sit beside the character */
+      .mark {
+        position: absolute;
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: var(--accent-ink);
+        pointer-events: none;
+      }
+      @keyframes mark-pulse {
+        0%,
+        100% {
+          opacity: 0.25;
+          transform: translateY(0) scale(0.94);
+        }
+        50% {
+          opacity: 1;
+          transform: translateY(-6px) scale(1);
+        }
+      }
+      @keyframes mark-drift {
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) scale(0.8);
+        }
+        30% {
+          opacity: 0.9;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(14px, -34px) scale(1.1);
+        }
+      }
+      @keyframes mark-pop {
+        0% {
+          opacity: 0;
+          transform: scale(0.4) rotate(-12deg);
+        }
+        40% {
+          opacity: 1;
+          transform: scale(1.1) rotate(4deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.9) rotate(0);
+        }
+      }
+      .mark.q {
+        font-size: 30px;
+        animation: mark-pulse var(--loop-think) var(--ease-calm) infinite;
+      }
+      .mark.z {
+        font-size: 19px;
+        color: var(--muted);
+        animation: mark-drift 3.4s var(--ease-calm) infinite;
+      }
+      .mark.z.b {
+        animation-delay: 1.1s;
+      }
+      .mark.s {
+        font-size: 22px;
+        animation: mark-pop 1.6s var(--ease-spring) infinite;
+      }
+      .mark.s.b {
+        animation-delay: 0.25s;
+      }
+
+      /* ─── loading elements ──────────────────────────────────────────────── */
+      .dots {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        height: 12px;
+      }
+      .dots span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: dot-wave 1400ms var(--ease-calm) infinite;
+      }
+      .dots span:nth-child(2) {
+        animation-delay: 140ms;
+      }
+      .dots span:nth-child(3) {
+        animation-delay: 280ms;
+      }
+      @keyframes dot-wave {
+        0%,
+        60%,
+        100% {
+          opacity: 0.3;
+          transform: translateY(0);
+        }
+        30% {
+          opacity: 1;
+          transform: translateY(-4px);
+        }
+      }
+
+      .track {
+        height: 4px;
+        border-radius: 999px;
+        background: var(--border);
+        overflow: hidden;
+        width: 100%;
+      }
+      .track i {
+        display: block;
+        height: 100%;
+        width: 38%;
+        border-radius: 999px;
+        background: var(--accent);
+        animation: track-slide 1.8s var(--ease-calm) infinite;
+      }
+      @keyframes track-slide {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(340%);
+        }
+      }
+
+      @keyframes logo-reveal {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .splash {
+        display: grid;
+        place-items: center;
+        gap: 18px;
+      }
+      .splash img {
+        height: 62px;
+        width: auto;
+        animation: logo-reveal var(--dur-calm) var(--ease-calm) both;
+      }
+      .splash .tagline {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0;
+        color: var(--muted);
+        animation: logo-reveal var(--dur-calm) var(--ease-calm) 240ms both;
+      }
+
+      /* ─── state demo ────────────────────────────────────────────────────── */
+      .demo {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 0;
+      }
+      @media (max-width: 860px) {
+        .demo {
+          grid-template-columns: 1fr;
+        }
+      }
+      .demo-rail {
+        border-right: 1px solid var(--border);
+        padding: 20px;
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+      @media (max-width: 860px) {
+        .demo-rail {
+          border-right: 0;
+          border-bottom: 1px solid var(--border);
+        }
+      }
+      .demo-rail button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        min-height: 44px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--muted);
+        font: inherit;
+        font-size: 14.5px;
+        cursor: pointer;
+        text-align: left;
+        transition:
+          background var(--dur-quick) var(--ease-calm),
+          color var(--dur-quick) var(--ease-calm);
+      }
+      .demo-rail button:hover {
+        background: var(--fg-soft);
+        color: var(--fg);
+      }
+      .demo-rail button[aria-pressed="true"] {
+        background: var(--accent-soft);
+        color: var(--accent-ink);
+        font-weight: 650;
+      }
+      .demo-rail button span {
+        font-family: var(--font-mono);
+        font-size: 11px;
+      }
+
+      .demo-screen {
+        padding: 34px;
+        display: grid;
+        grid-template-columns: 190px 1fr;
+        gap: 28px;
+        align-items: center;
+        min-height: 330px;
+      }
+      @media (max-width: 640px) {
+        .demo-screen {
+          grid-template-columns: 1fr;
+          text-align: center;
+          justify-items: center;
+        }
+      }
+      .demo-figure {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 190px;
+      }
+      .demo-copy {
+        display: grid;
+        gap: 12px;
+        max-width: 46ch;
+      }
+      .demo-copy h3 {
+        font-size: 21px;
+      }
+      .demo-copy p {
+        color: var(--muted);
+        font-size: 15px;
+      }
+      .demo-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 11px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-ink);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+      .pill.quiet {
+        background: var(--fg-soft);
+        color: var(--muted);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      th,
+      td {
+        padding: 11px 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      th {
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      td.num {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      tbody tr:hover {
+        background: var(--fg-soft);
+      }
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      pre {
+        margin: 0;
+        padding: 18px 20px;
+        background: var(--fg);
+        color: #f4f2fb;
+        border-radius: var(--radius);
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        line-height: 1.65;
+        overflow-x: auto;
+      }
+      .note {
+        background: var(--accent-soft);
+        border-radius: var(--radius);
+        padding: 16px 18px;
+        font-size: 14.5px;
+      }
+      .pagefoot {
+        padding-block: var(--gap-xl);
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .toon,
+        .mark,
+        .dots span,
+        .track i,
+        .splash img,
+        .splash .tagline {
+          animation: none !important;
+        }
+        .track i {
+          width: 100%;
+        }
+        .mark {
+          opacity: 0.6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topnav" data-od-id="topnav">
+      <div class="container topnav-inner">
+        <a class="home-link" href="index.html">Home</a>
+        <img src="img/may/logo-lockup.png" alt="May" />
+        <nav aria-label="Page sections">
+          <a href="#loading">Loading</a>
+          <a href="#states">States</a>
+          <a href="#demo">In context</a>
+          <a href="#spec">Timing</a>
+          <a href="#code">Implementation</a>
+        </nav>
+        <a class="btn btn-quiet" href="img/may/brand-sheet.jpg">Brand assets</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" data-od-id="hero">
+        <div class="container">
+          <p class="eyebrow">MAY · MOTION AND CHARACTER STATES</p>
+          <h1>May reacts to what the system is doing.</h1>
+          <p class="lead" style="margin-top: 18px">
+            Six states carry the whole product: idle, waiting, working, success, failure and first
+            load. Every animation on this page is live — no video, no GIF. They move only transform
+            and opacity, loop under two seconds unless they are ambient, and stop entirely under
+            <span class="meta">prefers-reduced-motion</span>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="loading" data-od-id="loading">
+        <div class="container">
+          <div class="row-between" style="margin-bottom: 32px">
+            <div>
+              <p class="eyebrow">01 · Loading</p>
+              <h2>Three loading moments</h2>
+            </div>
+            <p class="meta">Splash → indeterminate → long run</p>
+          </div>
+
+          <div class="grid-3">
+            <div class="card" data-od-id="loading-splash">
+              <div class="stage">
+                <div class="splash">
+                  <img src="img/may/logo-lockup.png" alt="May" />
+                  <p class="tagline">MAKE APPS YOURSELF</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>App splash</h3>
+                <p class="meta" style="margin-top: 6px">
+                  900ms fade + 4% scale · tagline 240ms later
+                </p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Cold start only. Never replay it on navigation — a logo that reappears reads as a
+                  crash.
+                </p>
+              </div>
             </div>
 
-            <h3 class="may-subhead">Palette</h3>
-            <ul class="may-palette">
-               <li><span class="may-chip" style="background:#E9DDFB"></span><strong>Lavender</strong><code>#E9DDFB</code></li>
-               <li><span class="may-chip" style="background:#A78BFA"></span><strong>Periwinkle</strong><code>#A78BFA</code></li>
-               <li><span class="may-chip may-chip-bordered" style="background:#FAF8FF"></span><strong>Off White</strong><code>#FAF8FF</code></li>
-               <li><span class="may-chip" style="background:#1F1F23"></span><strong>Charcoal</strong><code>#1F1F23</code></li>
-               <li><span class="may-chip" style="background:#5B463A"></span><strong>Warm Brown</strong><code>#5B463A</code></li>
-            </ul>
-
-            <figure class="may-sheet">
-               <img src="img/may/brand-sheet.jpg" alt="The full May brand sheet: primary logo, app icon, four character poses, colour palette, web and app application, and tagline system" loading="lazy">
-               <figcaption>The approved brand sheet &mdash; logo, icon, poses, palette, and application.</figcaption>
-            </figure>
-         </section>
-
-         <section class="uxe-case-section">
-            <h2>Five loops, one rule each</h2>
-            <p>Each state had to be distinguishable from the others at a glance, without reading a label. The separation is carried by <strong>speed</strong>: the fastest loop is machine work, the slowest is failure. Every loop below is live CSS on this page &mdash; no video, no GIF &mdash; and animates transform and opacity only.</p>
-
-            <div class="may-states">
-               <figure class="may-state" data-state="idle">
-                  <div class="may-state-stage"><img src="img/may/char-default.png" alt=""></div>
-                  <figcaption>
-                     <strong>Idle &middot; breathing</strong>
-                     <code>3.6s &middot; translateY 4px + scale 1.5%</code>
-                     <p>The slowest ambient loop. It should read as presence, not activity.</p>
-                  </figcaption>
-               </figure>
-
-               <figure class="may-state" data-state="thinking">
-                  <div class="may-state-stage"><img src="img/may/char-thinking.png" alt=""></div>
-                  <figcaption>
-                     <strong>Thinking &middot; waiting on the agent</strong>
-                     <code>4s sway &plusmn;2.2&deg;</code>
-                     <p>Brief generation and planning. Deliberately slower than the build loop so the two never feel alike.</p>
-                  </figcaption>
-               </figure>
-
-               <figure class="may-state" data-state="working">
-                  <div class="may-state-stage"><img src="img/may/char-typing.png" alt=""></div>
-                  <figcaption>
-                     <strong>Building &middot; working</strong>
-                     <code>1.1s bounce &plusmn;0.6&deg; &mdash; the fastest loop</code>
-                     <p>A run is executing. The faster cadence signals machine work rather than deliberation.</p>
-                  </figcaption>
-               </figure>
-
-               <figure class="may-state" data-state="success">
-                  <div class="may-state-stage"><img src="img/may/char-happy.png" alt=""></div>
-                  <figcaption>
-                     <strong>Success &middot; published</strong>
-                     <code>1.6s hop, spring easing</code>
-                     <p>In production this plays twice and settles back into idle. Celebration should end.</p>
-                  </figcaption>
-               </figure>
-
-               <figure class="may-state" data-state="failed">
-                  <div class="may-state-stage"><img src="img/may/char-resting.png" alt=""></div>
-                  <figcaption>
-                     <strong>Resting &middot; error or failed build</strong>
-                     <code>5s breathe, tilted &minus;7&deg;, saturation 75%</code>
-                     <p>May sits down rather than looking alarmed. The interface already carries the error; the character should lower the temperature, not raise it.</p>
-                  </figcaption>
-               </figure>
+            <div class="card" data-od-id="loading-dots">
+              <div class="stage">
+                <div style="display: grid; gap: 18px; justify-items: center">
+                  <img
+                    class="toon is-think"
+                    src="img/may/char-thinking.png"
+                    alt="May thinking"
+                    style="height: 130px"
+                  />
+                  <span class="dots" aria-label="Loading"
+                    ><span></span><span></span><span></span
+                  ></span>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Short wait · under 10s</h3>
+                <p class="meta" style="margin-top: 6px">Dot wave 1400ms · 140ms stagger</p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Character plus dots. No percentage, because a fake percentage is worse than none.
+                </p>
+              </div>
             </div>
 
-            <p class="may-note"><strong>Asset gap.</strong> The approved sheet has four poses. The resting state above is a build-time variant of the sitting pose with the question mark erased, then tilted and desaturated. A dedicated resting pose drawn in the same style is the one asset still missing from this system.</p>
-         </section>
-
-         <section class="uxe-case-section">
-            <h2>Where May never appears</h2>
-            <p>The harder half of a mascot system is deciding where it is banned. May is absent from every dense work surface &mdash; pipeline views, environments, logs, and the production publish confirmation.</p>
-            <p class="may-pullquote">A friendly mascot beside a production publish dialog undercuts the seriousness of the decision.</p>
-            <p>On those surfaces the status is carried entirely by text and an indeterminate track: start time, last activity, current stage. Nothing about the state depends on the character being there.</p>
-         </section>
-
-         <section class="uxe-case-section">
-            <h2>Four rules</h2>
-            <ol class="may-rules">
-               <li><strong>One moving thing per screen.</strong> The character or the progress element, never both competing.</li>
-               <li><strong>Slower means calmer.</strong> Error is the slowest loop in the system; building is the fastest.</li>
-               <li><strong>Transform and opacity only.</strong> No width, top, or filter animation in loops &mdash; they cost layout and paint.</li>
-               <li><strong>Motion is never the status.</strong> A spinner does not say what stage a run is in; text does.</li>
-            </ol>
-
-            <h3 class="may-subhead">Timing tokens</h3>
-            <div class="may-table-wrap">
-               <table class="may-table">
-                  <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
-                  <tbody>
-                     <tr><td><code>--dur-quick</code></td><td>180ms</td><td>State swaps, button feedback, cross-fades</td></tr>
-                     <tr><td><code>--dur-calm</code></td><td>900ms</td><td>Splash reveal, first paint of a panel</td></tr>
-                     <tr><td><code>--loop-work</code></td><td>1.1s</td><td>Building &mdash; the fastest loop</td></tr>
-                     <tr><td><code>--loop-breathe</code></td><td>3.6s</td><td>Idle presence</td></tr>
-                     <tr><td><code>--loop-think</code></td><td>4s</td><td>Waiting on the agent</td></tr>
-                     <tr><td>Resting breathe</td><td>5s</td><td>Error and failed build &mdash; the slowest loop</td></tr>
-                  </tbody>
-               </table>
+            <div class="card" data-od-id="loading-run">
+              <div class="stage">
+                <div
+                  style="
+                    display: grid;
+                    gap: 16px;
+                    justify-items: center;
+                    width: 100%;
+                    max-width: 230px;
+                  "
+                >
+                  <img
+                    class="toon is-work"
+                    src="img/may/char-typing.png"
+                    alt="May building"
+                    style="height: 130px"
+                  />
+                  <span class="track"><i></i></span>
+                  <span class="meta">Building · started 2 min ago</span>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Long run · a build</h3>
+                <p class="meta" style="margin-top: 6px">Indeterminate track 1800ms, loops</p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Pair the motion with real facts — start time, last activity, current stage. Motion
+                  alone is not status.
+                </p>
+              </div>
             </div>
-         </section>
+          </div>
+        </div>
+      </section>
 
-         <section class="uxe-case-section">
-            <h2>Accessibility</h2>
-            <p>Under <code>prefers-reduced-motion: reduce</code> every loop stops, indeterminate tracks become static bars, and floating marks hold at 60% opacity. Nothing in the system depends on movement to be understood &mdash; each state also carries a label, a heading, and its own text in the product.</p>
-            <p>The character ships with an empty <code>alt</code>, because it repeats what the status line already says. State changes are announced with <code>aria-live="polite"</code> on the status line instead, so a screen reader hears the change once rather than twice.</p>
-            <p class="may-note">The five figures above follow the same rule: they are decorative, carry empty <code>alt</code> text, and stop animating entirely if your system asks for reduced motion.</p>
-         </section>
+      <section class="section" id="states" data-od-id="states">
+        <div class="container">
+          <div class="row-between" style="margin-bottom: 32px">
+            <div>
+              <p class="eyebrow">02 · Character states</p>
+              <h2>Five loops, one rule each</h2>
+            </div>
+            <p class="meta">All ambient loops ≥ 1.1s so they never nag</p>
+          </div>
 
-         <a class="uxe-back-link uxe-back-link-bottom" href="index.html">Back to selected work</a>
-      </main>
+          <div class="grid-3">
+            <div class="card" data-od-id="state-idle">
+              <div class="stage">
+                <img
+                  class="toon is-idle"
+                  src="img/may/char-default.png"
+                  alt="May idle"
+                />
+              </div>
+              <div class="card-body">
+                <h3>Idle · breathing</h3>
+                <p class="meta" style="margin-top: 6px">3.6s · translateY 4px + scale 1.5%</p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Empty dashboard, waiting for the user. The slowest loop in the system — it should
+                  read as presence, not activity.
+                </p>
+              </div>
+            </div>
 
-      <footer id="footer" style="position: relative;">
-         <div class="container">
-            <div class="copyright text-center">&copy; Code and Design by Lisha Chen</div>
-         </div>
-      </footer>
+            <div class="card" data-od-id="state-thinking">
+              <div class="stage">
+                <img
+                  class="toon is-think"
+                  src="img/may/char-thinking.png"
+                  alt="May thinking"
+                />
+              </div>
+              <div class="card-body">
+                <h3>Thinking · waiting on the agent</h3>
+                <p class="meta" style="margin-top: 6px">
+                  4s sway ±2.2° · the question mark is part of the pose artwork
+                </p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Brief generation, planning, analysis. The sway is slower than the build loop so
+                  the two states never feel alike.
+                </p>
+              </div>
+            </div>
 
-      <script src="lib/jquery/jquery.min.js"></script>
-      <script src="lib/jquery/jquery-migrate.min.js"></script>
-      <script src="lib/wow/wow.min.js"></script>
-      <script src="lib/superfish/superfish.min.js"></script>
-      <script src="js/main.js"></script>
-   </body>
+            <div class="card" data-od-id="state-typing">
+              <div class="stage">
+                <img
+                  class="toon is-work"
+                  src="img/may/char-typing.png"
+                  alt="May building"
+                />
+              </div>
+              <div class="card-body">
+                <h3>Building · working</h3>
+                <p class="meta" style="margin-top: 6px">1.1s bounce ±0.6° — the fastest loop</p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  A run is executing. Faster cadence signals machine work rather than deliberation.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" data-od-id="state-success">
+              <div class="stage">
+                <img
+                  class="toon is-happy"
+                  src="img/may/char-happy.png"
+                  alt="May celebrating"
+                />
+                <span class="mark s" style="top: 52px; left: 26%">✦</span>
+                <span class="mark s b" style="top: 78px; right: 26%">✦</span>
+              </div>
+              <div class="card-body">
+                <h3>Success · published</h3>
+                <p class="meta" style="margin-top: 6px">
+                  1.6s hop, spring easing · sparkles offset 250ms
+                </p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Beta accepted or version published. In production this plays twice and settles
+                  into idle — celebration should end.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" data-od-id="state-resting">
+              <div class="stage">
+                <img
+                  class="toon is-rest"
+                  src="img/may/char-resting.png"
+                  alt="May resting"
+                />
+                <span class="mark z" style="top: 56px; right: 28%">z</span>
+                <span class="mark z b" style="top: 74px; right: 22%">z</span>
+              </div>
+              <div class="card-body">
+                <h3>Resting · error or failed build</h3>
+                <p class="meta" style="margin-top: 6px">5s breathe, tilted −7°, saturation 75%</p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  Something broke. May sits down rather than looking alarmed: the interface already
+                  carries the error, so the character should lower the temperature, not raise it.
+                </p>
+              </div>
+            </div>
+
+            <div class="card" data-od-id="state-none">
+              <div class="stage" style="background: var(--surface)">
+                <div
+                  style="
+                    display: grid;
+                    gap: 14px;
+                    justify-items: center;
+                    max-width: 24ch;
+                    text-align: center;
+                  "
+                >
+                  <span class="pill quiet">No character</span>
+                  <p style="color: var(--muted); font-size: 14.5px">
+                    Dense work views — pipeline, environments, logs, publish confirmation.
+                  </p>
+                </div>
+              </div>
+              <div class="card-body">
+                <h3>Where May never appears</h3>
+                <p class="meta" style="margin-top: 6px">
+                  Gates and technical surfaces stay character-free
+                </p>
+                <p style="color: var(--muted); font-size: 15px; margin-top: 10px">
+                  A friendly mascot beside a production publish dialog undercuts the seriousness of
+                  the decision.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="note" style="margin-top: 26px">
+            <strong>Asset gap.</strong> The approved sheet has four poses — default, happy,
+            thinking, typing. The resting state above uses
+            <span class="meta">may-character-resting.png</span>, a build-time variant of the sitting
+            pose with the question mark erased from the artwork, then tilted and desaturated. A
+            dedicated resting or sleeping pose, drawn in the same style, is the one asset still
+            missing for this system.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="demo" data-od-id="demo">
+        <div class="container">
+          <div class="row-between" style="margin-bottom: 28px">
+            <div>
+              <p class="eyebrow">03 · In context</p>
+              <h2>Pick a system state</h2>
+            </div>
+            <p class="meta">Same panel, five states — try each one</p>
+          </div>
+
+          <div class="card">
+            <div class="demo">
+              <div class="demo-rail" role="group" aria-label="System state">
+                <button type="button" data-state="idle" aria-pressed="true">
+                  Nothing running <span>idle</span>
+                </button>
+                <button type="button" data-state="thinking" aria-pressed="false">
+                  Writing the brief <span>waiting</span>
+                </button>
+                <button type="button" data-state="building" aria-pressed="false">
+                  Build running <span>working</span>
+                </button>
+                <button type="button" data-state="published" aria-pressed="false">
+                  Version published <span>success</span>
+                </button>
+                <button type="button" data-state="failed" aria-pressed="false">
+                  Build failed <span>error</span>
+                </button>
+              </div>
+
+              <div class="demo-screen" id="screen">
+                <div class="demo-figure">
+                  <img
+                    class="toon"
+                    id="demo-toon"
+                    src="img/may/char-default.png"
+                    alt=""
+                  />
+                  <span class="mark" id="demo-mark" hidden></span>
+                </div>
+                <div class="demo-copy">
+                  <span class="pill" id="demo-pill">Idle</span>
+                  <h3 id="demo-title">Ready when you are.</h3>
+                  <p id="demo-text">
+                    Describe what you want to build and May writes a brief for you to approve.
+                  </p>
+                  <div class="demo-row" id="demo-extra"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="meta" style="margin-top: 16px">
+            State swaps cross-fade in 180ms. The character never jumps between poses mid-animation —
+            the old loop fades out first.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="spec" data-od-id="spec">
+        <div class="container">
+          <p class="eyebrow">04 · Timing</p>
+          <h2 style="margin-bottom: 28px">Every duration in the system</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Value</th>
+                  <th>Easing</th>
+                  <th>Used by</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--dur-quick</code></td>
+                  <td class="num">180ms</td>
+                  <td class="num">ease-calm</td>
+                  <td>State swaps, button feedback, cross-fades</td>
+                </tr>
+                <tr>
+                  <td><code>--dur-calm</code></td>
+                  <td class="num">900ms</td>
+                  <td class="num">ease-calm</td>
+                  <td>Splash reveal, first paint of a panel</td>
+                </tr>
+                <tr>
+                  <td><code>--loop-work</code></td>
+                  <td class="num">1.1s</td>
+                  <td class="num">ease-calm</td>
+                  <td>Building — the fastest loop</td>
+                </tr>
+                <tr>
+                  <td>Success hop</td>
+                  <td class="num">1.6s</td>
+                  <td class="num">ease-spring</td>
+                  <td>Published, beta accepted</td>
+                </tr>
+                <tr>
+                  <td>Dot wave</td>
+                  <td class="num">1.4s</td>
+                  <td class="num">ease-calm</td>
+                  <td>Short waits, 140ms stagger per dot</td>
+                </tr>
+                <tr>
+                  <td>Track slide</td>
+                  <td class="num">1.8s</td>
+                  <td class="num">ease-calm</td>
+                  <td>Indeterminate progress</td>
+                </tr>
+                <tr>
+                  <td><code>--loop-breathe</code></td>
+                  <td class="num">3.6s</td>
+                  <td class="num">ease-calm</td>
+                  <td>Idle presence</td>
+                </tr>
+                <tr>
+                  <td><code>--loop-think</code></td>
+                  <td class="num">4s</td>
+                  <td class="num">ease-calm</td>
+                  <td>Waiting on the agent</td>
+                </tr>
+                <tr>
+                  <td>Resting breathe</td>
+                  <td class="num">5s</td>
+                  <td class="num">ease-calm</td>
+                  <td>Error and failed build — the slowest loop</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid-2" style="margin-top: 36px">
+            <div class="card" style="padding: 22px">
+              <h3 style="margin-bottom: 10px">Four rules</h3>
+              <p style="color: var(--muted); font-size: 15px">
+                <strong style="color: var(--fg)">One moving thing per screen.</strong> The character
+                or the progress element, never both competing.<br /><br />
+                <strong style="color: var(--fg)">Slower means calmer.</strong> Error is the slowest
+                loop in the system; building is the fastest.<br /><br />
+                <strong style="color: var(--fg)">Transform and opacity only.</strong> No width, top,
+                or filter animation in loops — they cost layout and paint.<br /><br />
+                <strong style="color: var(--fg)">Motion is never the status.</strong> A spinner does
+                not say what stage a run is in; text does.
+              </p>
+            </div>
+            <div class="card" style="padding: 22px">
+              <h3 style="margin-bottom: 10px">Accessibility</h3>
+              <p style="color: var(--muted); font-size: 15px">
+                Under <span class="meta">prefers-reduced-motion: reduce</span> every loop on this
+                page stops, the indeterminate track becomes a full static bar, and the floating
+                marks hold at 60% opacity. Nothing depends on movement to be understood: each state
+                also carries a label, a heading and, in the product, its own text.<br /><br />
+                Announce state changes with <span class="meta">aria-live="polite"</span> on the
+                status line, not on the character — the character is decorative and ships with an
+                empty <span class="meta">alt</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="code" data-od-id="code">
+        <div class="container">
+          <p class="eyebrow">05 · Implementation</p>
+          <h2 style="margin-bottom: 24px">Copy this into the product</h2>
+          <div class="grid-2">
+            <div>
+              <p class="meta" style="margin-bottom: 10px">Tokens and loops</p>
+              <pre>
+:root {
+  --dur-quick: 180ms;
+  --dur-calm: 900ms;
+  --loop-breathe: 3.6s;
+  --loop-think: 4s;
+  --loop-work: 1.1s;
+  --ease-calm: cubic-bezier(.4, 0, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.4, .5, 1);
+}
+
+@keyframes may-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-4px) scale(1.015); }
+}
+@keyframes may-think {
+  0%, 100% { transform: rotate(-2.2deg) translateY(0); }
+  50%      { transform: rotate(2.2deg) translateY(-3px); }
+}
+@keyframes may-rest {
+  0%, 100% { transform: rotate(-7deg) translateY(0) scale(1); }
+  50%      { transform: rotate(-7deg) translateY(-2px) scale(1.01); }
+}</pre>
+            </div>
+            <div>
+              <p class="meta" style="margin-bottom: 10px">Binding a state</p>
+              <pre>
+&lt;figure class="may-state" data-state="thinking"&gt;
+  &lt;img src="may-character-thinking.png" alt="" /&gt;
+&lt;/figure&gt;
+
+.may-state img { transform-origin: 50% 100%; }
+[data-state="idle"]    img { animation: may-breathe var(--loop-breathe)
+                             var(--ease-calm) infinite; }
+[data-state="thinking"] img { animation: may-think var(--loop-think)
+                             var(--ease-calm) infinite; }
+[data-state="failed"]   img { animation: may-rest 5s var(--ease-calm) infinite;
+                              filter: saturate(.75); }
+
+@media (prefers-reduced-motion: reduce) {
+  .may-state img { animation: none; }
+}</pre>
+            </div>
+          </div>
+          <p class="note" style="margin-top: 26px">
+            The character <span class="meta">alt</span> stays empty — it repeats what the status
+            text already says. Put <span class="meta">aria-live="polite"</span> on the status line
+            instead so a screen reader hears the state change once.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="pagefoot">
+      <div class="container row-between">
+        <span>May · Zhenfy LLC · Motion and character states · 2026-09-24</span>
+        <span class="meta"><a href="index.html">Back to portfolio</a></span>
+      </div>
+    </footer>
+
+    <script>
+      var STATES = {
+        idle: {
+          pose: "may-character-default",
+          anim: "is-idle",
+          pill: "Idle",
+          mark: null,
+          title: "Ready when you are.",
+          text: "Describe what you want to build and May writes a brief for you to approve.",
+          extra: '<button class="btn" type="button">Start a project</button>',
+        },
+        thinking: {
+          pose: "may-character-thinking",
+          anim: "is-think",
+          pill: "Waiting",
+          mark: null,
+          title: "Writing your Product Brief.",
+          text: "Nothing is built until you approve it. Scope, exclusions and acceptance criteria come back for review.",
+          extra: '<span class="dots"><span></span><span></span><span></span></span>',
+        },
+        building: {
+          pose: "may-character-typing",
+          anim: "is-work",
+          pill: "Building",
+          mark: null,
+          title: "Build running.",
+          text: "Started 2 minutes ago · last activity just now · pages and content stage.",
+          extra: '<span class="track" style="max-width: 260px;"><i></i></span>',
+        },
+        published: {
+          pose: "may-character-happy",
+          anim: "is-happy",
+          pill: "Published",
+          mark: { cls: "mark s", text: "✦" },
+          title: "Version 2 is live.",
+          text: "Version 1 stays available as a rollback target. Nothing else changed.",
+          extra: '<button class="btn btn-quiet" type="button">View live site</button>',
+        },
+        failed: {
+          pose: "may-character-resting",
+          anim: "is-rest",
+          pill: "Build failed",
+          mark: { cls: "mark z", text: "z" },
+          title: "That build did not finish.",
+          text: "Your live version is untouched. May can analyse the failed run and try a fix, reusing the stages that already completed.",
+          extra: '<button class="btn" type="button">Analyse and retry</button>',
+        },
+      };
+
+      var toon = document.getElementById("demo-toon");
+      var mark = document.getElementById("demo-mark");
+      var pill = document.getElementById("demo-pill");
+      var title = document.getElementById("demo-title");
+      var text = document.getElementById("demo-text");
+      var extra = document.getElementById("demo-extra");
+      var screen = document.getElementById("screen");
+
+      function apply(key) {
+        var s = STATES[key];
+        if (!s) return;
+        screen.style.opacity = "0";
+        setTimeout(function () {
+          toon.className = "toon " + s.anim;
+          toon.src = "img/may/" + s.pose.replace("may-character-", "char-") + ".png";
+          pill.textContent = s.pill;
+          pill.className = key === "failed" || key === "idle" ? "pill quiet" : "pill";
+          title.textContent = s.title;
+          text.textContent = s.text;
+          extra.innerHTML = s.extra;
+          if (s.mark) {
+            mark.className = s.mark.cls;
+            mark.textContent = s.mark.text;
+            mark.style.top = "40px";
+            mark.style.right = "24%";
+            mark.hidden = false;
+          } else {
+            mark.hidden = true;
+          }
+          screen.style.opacity = "1";
+        }, 180);
+      }
+
+      screen.style.transition = "opacity 180ms cubic-bezier(.4, 0, .2, 1)";
+
+      document.querySelectorAll(".demo-rail button").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".demo-rail button").forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b === btn));
+          });
+          apply(btn.getAttribute("data-state"));
+        });
+      });
+
+      apply("idle");
+    </script>
+  </body>
 </html>
