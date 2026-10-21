@@ -2663,3 +2663,54 @@ margin-bottom: 30px;
     max-width: 460px;
   }
 }
+
+
+/* ---------------------------------------------------------------
+   Numbers get seen; sentences get read.
+
+   A hiring manager gives this section a few seconds. One sentence per
+   role was short, but it still had to be read start to finish before
+   it paid out. These put the hardest facts where they register without
+   reading — large, isolated, above the prose. HBO Max carries three
+   because it is the current role; the others carry one each, which is
+   the hierarchy rather than an accident.
+   --------------------------------------------------------------- */
+
+.uxe-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  margin: 0 0 16px;
+}
+
+.uxe-metrics div { min-width: 0; }
+
+.uxe-metrics dt {
+  color: var(--uxe-text);
+  font-family: Montserrat, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* A lone metric has the whole row; only constrain the label when it is
+   sharing. Without this the single eBay label broke over four lines. */
+.uxe-metrics div:only-child dd { max-width: none; }
+
+.uxe-metrics dd {
+  color: #777;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+  margin: 5px 0 0;
+  max-width: 19ch;
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+  .uxe-metrics { gap: 12px 24px; }
+  .uxe-metrics dt { font-size: 1.35rem; }
+}
