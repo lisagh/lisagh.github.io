@@ -758,10 +758,29 @@
           </ul>
 
           <div class="note" style="margin-top:28px;max-width:68ch">
-            A short palette is a constraint on the generator, not a taste preference. Let a model
-            reach for any colour and it produces screens that are each fine and together look like
-            five different products. Five named tokens means a generated screen is wrong in a way
-            you can point at.
+            A short palette is a constraint on the generator, not a taste preference. Given a
+            continuous range a model uses all of it &mdash; every screen fine on its own, the set
+            looking like five different products.
+          </div>
+
+          <h3 style="margin:44px 0 16px;font-size:19px">Type and spacing</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td><code>--font-display</code></td><td class="num">SF Pro Rounded</td><td>Headings and the wordmark &mdash; rounded, to match the character</td></tr>
+                <tr><td><code>--font-body</code></td><td class="num">system-ui</td><td>Everything a person reads</td></tr>
+                <tr><td><code>--font-mono</code></td><td class="num">JetBrains Mono</td><td>Values, labels, anything the machine produced</td></tr>
+                <tr><td><code>--fs-h1</code> / <code>--fs-h2</code></td><td class="num">58px / 36px</td><td>Two heading sizes, no others</td></tr>
+                <tr><td><code>--gap-md / lg / xl</code></td><td class="num">20 / 32 / 56px</td><td>The only spacing steps</td></tr>
+                <tr><td><code>--radius</code> / <code>--radius-lg</code></td><td class="num">12px / 20px</td><td>Controls and inputs / cards and panels</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="note" style="margin-top:28px;max-width:68ch">
+            Mono earns its place: it marks anything the machine wrote, so a generated value never
+            passes for one a person typed.
           </div>
         </div>
       </section>
