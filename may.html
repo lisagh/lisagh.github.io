@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>May Motion &amp; Character States | Lisha Chen</title>
-    <meta name="description" content="May's motion and character states, with live loading animations and an interactive state demo." />
+    <title>May &mdash; Design system for an AI app builder | Lisha Chen</title>
+    <meta name="description" content="Design system for May, Zhenfy's no-code AI app builder: colour tokens, the component vocabulary a model generates against, and the motion system that shows what the machine is doing." />
     <link rel="canonical" href="https://lisagh.github.io/may.html" />
     <link rel="icon" href="img/favicon.png" />
     <style>
@@ -640,6 +640,32 @@
         line-height: 1.65;
         overflow-x: auto;
       }
+      .swatches {
+        display: grid;
+        gap: 18px 32px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .swatches li {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+      }
+      .swatches li > span:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .swatches b { font-weight: 600; }
+      .swatch {
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        flex: none;
+        height: 30px;
+        width: 30px;
+      }
       .note {
         background: var(--accent-soft);
         border-radius: var(--radius);
@@ -677,6 +703,8 @@
         <a class="home-link" href="index.html">Home</a>
         <img src="img/may/logo-lockup.png" alt="May" />
         <nav aria-label="Page sections">
+          <a href="#foundations">Foundations</a>
+          <a href="#generated">Generated UI</a>
           <a href="#loading">Loading</a>
           <a href="#states">States</a>
           <a href="#demo">In context</a>
@@ -690,14 +718,99 @@
     <main>
       <section class="section" data-od-id="hero">
         <div class="container">
-          <p class="eyebrow">MAY · MOTION AND CHARACTER STATES</p>
-          <h1>May reacts to what the system is doing.</h1>
+          <p class="eyebrow">MAY · DESIGN SYSTEM</p>
+          <h1>A design system a model can build with.</h1>
           <p class="lead" style="margin-top: 18px">
-            Six states carry the whole product: idle, waiting, working, success, failure and first
-            load. Every animation on this page is live — no video, no GIF. They move only transform
-            and opacity, loop under two seconds unless they are ambient, and stop entirely under
-            <span class="meta">prefers-reduced-motion</span>.
+            May turns a sentence into a working app. The person types what they want; a model picks
+            the screens and components. That only works if the parts it picks from are a closed,
+            named set — so the design system is not documentation here, it is what the generator
+            draws on. This page covers the colour tokens, the component vocabulary the model writes
+            against, and the motion system that tells the user what the machine is doing.
           </p>
+          <p class="lead" style="margin-top: 14px">
+            Every animation below is live — no video, no GIF. Nothing moves except transform and
+            opacity, and everything stops under <span class="meta">prefers-reduced-motion</span>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="foundations">
+        <div class="container">
+          <div class="row-between" style="margin-bottom: 32px">
+            <div>
+              <p class="eyebrow">00 · Foundations</p>
+              <h2>Five colours, and nothing else</h2>
+            </div>
+            <p class="meta">Every surface comes from this list</p>
+          </div>
+
+          <ul class="swatches">
+            <li><span class="swatch" style="background:#E9DDFB"></span>
+              <span><b>Lavender</b><span class="meta">#E9DDFB &middot; Borders and dividers</span></span></li>
+            <li><span class="swatch" style="background:#A78BFA"></span>
+              <span><b>Periwinkle</b><span class="meta">#A78BFA &middot; The one accent</span></span></li>
+            <li><span class="swatch" style="background:#FAF8FF"></span>
+              <span><b>Off White</b><span class="meta">#FAF8FF &middot; Page ground</span></span></li>
+            <li><span class="swatch" style="background:#1F1F23"></span>
+              <span><b>Charcoal</b><span class="meta">#1F1F23 &middot; Text</span></span></li>
+            <li><span class="swatch" style="background:#5B463A"></span>
+              <span><b>Warm Brown</b><span class="meta">#5B463A &middot; Character artwork only</span></span></li>
+          </ul>
+
+          <div class="note" style="margin-top:28px;max-width:68ch">
+            A short palette is a constraint on the generator, not a taste preference. Let a model
+            reach for any colour and it produces screens that are each fine and together look like
+            five different products. Five named tokens means a generated screen is wrong in a way
+            you can point at.
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="generated">
+        <div class="container">
+          <div class="row-between" style="margin-bottom: 32px">
+            <div>
+              <p class="eyebrow">01 · Generated UI</p>
+              <h2>The model assembles, it does not invent</h2>
+            </div>
+            <p class="meta">Why the system has to come first</p>
+          </div>
+
+          <p class="lead" style="margin-bottom: 32px">
+            A normal design system is a guide: people read it and mostly follow it. Here a model
+            reads it and follows it exactly, which changes what the system has to be good at.
+          </p>
+
+          <div class="grid-2">
+            <div class="card"><div class="card-body">
+              <p class="eyebrow">Complete</p>
+              <p>A designer who finds no component for an empty list invents one. A model picks the
+                 nearest wrong thing and ships it. Every gap in the library turns into a bug in the
+                 output.</p>
+            </div></div>
+            <div class="card"><div class="card-body">
+              <p class="eyebrow">Unambiguous</p>
+              <p>Two components whose names could both describe the same situation get mixed up —
+                 and not consistently, so the same prompt can land on either. Naming is a
+                 correctness problem here, not a tidiness one.</p>
+            </div></div>
+            <div class="card"><div class="card-body">
+              <p class="eyebrow">Safe by default</p>
+              <p>The model fills in properties nobody specified. Every default has to stand on its
+                 own, because the default is what ships whenever the prompt was vague.</p>
+            </div></div>
+            <div class="card"><div class="card-body">
+              <p class="eyebrow">Recoverable</p>
+              <p>Generation fails, or succeeds at the wrong thing. People need to keep the parts
+                 that work and redo the rest — not start over from an empty prompt.</p>
+            </div></div>
+          </div>
+
+          <div class="note" style="margin-top:28px;max-width:68ch">
+            Most of the design work went into the last one. A good first result is a model problem.
+            A usable third result is an interface problem, and that is the one that decides whether
+            people keep using the product.
+          </div>
         </div>
       </section>
 
@@ -705,7 +818,7 @@
         <div class="container">
           <div class="row-between" style="margin-bottom: 32px">
             <div>
-              <p class="eyebrow">01 · Loading</p>
+              <p class="eyebrow">02 · Loading</p>
               <h2>Three loading moments</h2>
             </div>
             <p class="meta">Splash → indeterminate → long run</p>
@@ -792,7 +905,7 @@
         <div class="container">
           <div class="row-between" style="margin-bottom: 32px">
             <div>
-              <p class="eyebrow">02 · Character states</p>
+              <p class="eyebrow">03 · Character states</p>
               <h2>Five loops, one rule each</h2>
             </div>
             <p class="meta">All ambient loops ≥ 1.1s so they never nag</p>
@@ -941,7 +1054,7 @@
         <div class="container">
           <div class="row-between" style="margin-bottom: 28px">
             <div>
-              <p class="eyebrow">03 · In context</p>
+              <p class="eyebrow">04 · In context</p>
               <h2>Pick a system state</h2>
             </div>
             <p class="meta">Same panel, five states — try each one</p>
@@ -998,7 +1111,7 @@
 
       <section class="section" id="spec" data-od-id="spec">
         <div class="container">
-          <p class="eyebrow">04 · Timing</p>
+          <p class="eyebrow">05 · Timing</p>
           <h2 style="margin-bottom: 28px">Every duration in the system</h2>
           <div class="table-wrap">
             <table>
@@ -1101,7 +1214,7 @@
 
       <section class="section" id="code" data-od-id="code">
         <div class="container">
-          <p class="eyebrow">05 · Implementation</p>
+          <p class="eyebrow">06 · Implementation</p>
           <h2 style="margin-bottom: 24px">Copy this into the product</h2>
           <div class="grid-2">
             <div>
