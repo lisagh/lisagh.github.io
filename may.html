@@ -666,6 +666,50 @@
         height: 30px;
         width: 30px;
       }
+      .spec { margin-top: 22px; }
+      .spec-row {
+        align-items: flex-end; border-top: 1px solid var(--border); display: grid;
+        gap: 18px 28px; grid-template-columns: 160px 1fr; padding: 20px 0;
+      }
+      .spec-row:last-of-type { border-bottom: 1px solid var(--border); }
+      .spec-row > dt { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+      .spec-row > dt b { color: var(--fg); display: block; font-family: var(--font-body);
+                         font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+      .spec-set { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+      .sbtn {
+        border: 1px solid transparent; border-radius: var(--radius); font-family: var(--font-body);
+        font-size: 14px; font-weight: 600; min-height: 42px; padding: 11px 18px;
+      }
+      .sbtn[data-v="primary"]   { background: #A78BFA; color: #1F1F23; }
+      .sbtn[data-v="secondary"] { background: #F2EDFC; color: #1F1F23; border-color: #D3C4EE; }
+      .sbtn[data-v="danger"]    { background: #C2362F; color: #FFFFFF; }
+      .sbtn[data-v="ghost"]     { background: transparent; color: #6E4BE0; }
+      .sbtn[data-s="disabled"]  { opacity: .45; }
+      .sbtn[data-s="loading"]::before {
+        content: ""; display: inline-block; width: 13px; height: 13px; margin-right: 8px;
+        border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%;
+        vertical-align: -2px; animation: sspin .7s linear infinite;
+      }
+      @keyframes sspin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .sbtn[data-s="loading"]::before { animation: none; } }
+
+      .sbadge {
+        border-radius: 999px; font-family: var(--font-body); font-size: 12px; font-weight: 700;
+        letter-spacing: .02em; padding: 5px 11px;
+      }
+      .sbadge[data-t="neutral"] { background: rgba(86,81,110,.12);  color: #56516E; }
+      .sbadge[data-t="active"]  { background: rgba(167,139,250,.18); color: #6E4BE0; }
+      .sbadge[data-t="success"] { background: rgba(11,122,87,.14);   color: #0B7A57; }
+      .sbadge[data-t="warning"] { background: rgba(138,90,0,.14);    color: #8A5A00; }
+      .sbadge[data-t="danger"]  { background: rgba(194,54,47,.14);   color: #C2362F; }
+
+      .sstate {
+        border: 1px solid var(--border); border-radius: var(--radius); flex: 1 1 180px;
+        min-width: 180px; padding: 18px; text-align: center;
+      }
+      .sstate b { display: block; font-size: 14px; margin-bottom: 4px; }
+      .sstate span { color: var(--muted); font-size: 12.5px; }
       .note {
         background: var(--accent-soft);
         border-radius: var(--radius);
@@ -825,7 +869,66 @@
             </div></div>
           </div>
 
-          <h3 style="margin:44px 0 16px;font-size:19px">What comes out</h3>
+          <h3 style="margin:44px 0 6px;font-size:19px">The components</h3>
+          <p class="meta" style="margin-bottom:6px">Live specimens, rendered from the shipped token values</p>
+
+          <dl class="spec">
+            <div class="spec-row">
+              <dt><b>Button</b>4 variants<br>&times; 3 states</dt>
+              <dd class="spec-set" style="margin:0">
+                <button class="sbtn" data-v="primary">Publish</button>
+                <button class="sbtn" data-v="secondary">Save draft</button>
+                <button class="sbtn" data-v="danger">Delete</button>
+                <button class="sbtn" data-v="ghost">Cancel</button>
+                <button class="sbtn" data-v="primary" data-s="loading">Building</button>
+                <button class="sbtn" data-v="primary" data-s="disabled" disabled>Publish</button>
+              </dd>
+            </div>
+
+            <div class="spec-row">
+              <dt><b>StatusBadge</b>5 tones</dt>
+              <dd class="spec-set" style="margin:0">
+                <span class="sbadge" data-t="neutral">Draft</span>
+                <span class="sbadge" data-t="active">Building</span>
+                <span class="sbadge" data-t="success">Published</span>
+                <span class="sbadge" data-t="warning">Needs review</span>
+                <span class="sbadge" data-t="danger">Failed</span>
+              </dd>
+            </div>
+
+            <div class="spec-row">
+              <dt><b>States</b>Loading, Error,<br>Empty</dt>
+              <dd class="spec-set" style="margin:0;align-items:stretch">
+                <div class="sstate"><b>Loading&hellip;</b><span>Spinner plus label, never a bare spinner</span></div>
+                <div class="sstate"><b>Could not load</b><span>Carries a message and a retry</span></div>
+                <div class="sstate"><b>Nothing here yet</b><span>Says what to do next, not just what is absent</span></div>
+              </dd>
+            </div>
+          </dl>
+
+          <h3 style="margin:40px 0 16px;font-size:19px">Why four variants need two inks</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Variant</th><th>Ink on fill</th><th>Contrast</th><th></th></tr></thead>
+              <tbody>
+                <tr><td><code>primary</code></td><td class="num">#1F1F23 on #A78BFA</td><td class="num">6.04:1</td><td>AA</td></tr>
+                <tr><td><code>secondary</code></td><td class="num">#1F1F23 on #F2EDFC</td><td class="num">14.31:1</td><td>AA</td></tr>
+                <tr><td><code>danger</code></td><td class="num">#FFFFFF on #C2362F</td><td class="num">5.44:1</td><td>AA</td></tr>
+                <tr><td><code>ghost</code></td><td class="num">#6E4BE0 on #FAF8FF</td><td class="num">5.32:1</td><td>AA</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note" style="margin-top:20px;max-width:68ch">
+            The fills sit on opposite sides of the page: periwinkle and a raised card are light and
+            take charcoal, a destructive fill is dark and takes white. Give all four a single ink
+            and <code>danger</code> lands at <strong>3.02:1</strong> &mdash; under AA, on the one
+            button where a misread is expensive. Two inks is the whole fix, and it only gets found
+            if someone checks every variant rather than the default one.
+          </div>
+
+          <h3 style="margin:44px 0 6px;font-size:19px">And it still bends</h3>
+          <p class="meta" style="margin-bottom:16px">A closed set is only worth having if it can
+             still produce work that looks nothing alike</p>
           <figure style="margin:0">
             <img src="img/may/templates.jpg" width="1600" height="1000" loading="lazy" decoding="async"
                  alt="Four generated sites side by side: a bakery in warm serif and photography, a music
