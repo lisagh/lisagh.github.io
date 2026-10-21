@@ -22,6 +22,63 @@
       <meta property="og:image:height" content="630">
       <meta property="og:image:alt" content="Lisha Chen — Engineer + Designer. A software engineer who designs.">
       <meta name="twitter:card" content="summary_large_image">
+
+      <style>
+        /* Schedule framework demo. Self-contained so it cannot be broken by a
+           cached stylesheet, and so the whole thing is one file to read. */
+        .sched { margin-top: 28px; }
+        .sched-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+        .sched-tabs button {
+          background: #fff; border: 1px solid var(--uxe-rule); color: #555; cursor: pointer;
+          font-family: Montserrat, sans-serif; font-size: .72rem; font-weight: 600;
+          letter-spacing: .08em; padding: 8px 14px; text-transform: uppercase;
+        }
+        .sched-tabs button[aria-pressed="true"] { background: #000; border-color: #000; color: #fff; }
+        .sched-tabs button:focus-visible { outline: 2px solid var(--uxe-accent); outline-offset: 2px; }
+
+        .sched-grid { border: 1px solid var(--uxe-rule); overflow: hidden; position: relative; }
+        .sched-ruler {
+          border-bottom: 1px solid var(--uxe-rule); display: flex; height: 30px; position: relative;
+        }
+        .sched-ruler span {
+          color: #999; flex: 1; font-family: Montserrat, sans-serif; font-size: .64rem;
+          font-weight: 600; letter-spacing: .06em; padding: 9px 0 0 8px;
+          border-left: 1px solid var(--uxe-rule);
+        }
+        .sched-ruler span:first-child { border-left: 0; }
+
+        .sched-track { padding: 14px 0; position: relative; min-height: 150px; }
+        .sched-row { height: 52px; position: relative; }
+
+        .sched-ev {
+          background: #fff; border: 1px solid var(--uxe-rule); cursor: pointer; overflow: hidden;
+          padding: 6px 10px; position: absolute; text-align: left; top: 3px; height: 44px;
+          transition: border-color 160ms ease;
+        }
+        .sched-ev:hover { border-color: #000; }
+        .sched-ev:focus-visible { outline: 2px solid var(--uxe-accent); outline-offset: 1px; }
+        .sched-ev b {
+          display: block; font-family: Montserrat, sans-serif; font-size: .78rem; font-weight: 600;
+          line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .sched-ev i {
+          color: #888; display: block; font-family: Montserrat, sans-serif; font-size: .6rem;
+          font-style: normal; line-height: 1.3;
+          letter-spacing: .07em; text-transform: uppercase;
+        }
+        .sched-ev[data-state="live"] { border-color: #000; }
+        .sched-ev[data-state="live"] i { color: var(--uxe-accent); font-weight: 700; }
+        .sched-ev[data-state="done"] { opacity: .45; }
+
+        .sched-now { background: var(--uxe-accent); bottom: 0; position: absolute; top: 30px; width: 2px; z-index: 2; }
+        .sched-now::before {
+          background: var(--uxe-accent); border-radius: 50%; content: ""; height: 7px;
+          left: -2.5px; position: absolute; top: -3px; width: 7px;
+        }
+
+        .sched-note { color: #777; font-size: .82rem; margin-top: 12px; }
+        @media (max-width: 640px) { .sched-ruler span:nth-child(n+5) { display: none; } }
+      </style>
    </head>
    <body>
       <header id="header">
@@ -40,6 +97,40 @@
             <p class="uxe-kicker uxe-breadcrumb"><a href="index.html">Home</a><span>/</span>HBO Max</p>
             <h1>Cross-platform UI systems for streaming experiences.</h1>
             <p class="uxe-lede">I led front-end implementation for key HBO Max platform initiatives during the migration from React Native to React, rebuilding core web experiences and establishing reusable UI patterns across high-traffic product surfaces for a 140M+ global subscriber base.</p>
+         </section>
+
+         <section class="uxe-case-section">
+            <p class="uxe-kicker">Public reconstruction</p>
+            <h2>The schedule framework, rebuilt in the open</h2>
+            <p>The Paris Olympics shipped as its own page. Turning it into a feature that any
+               league could use meant one component that takes a feed and lays itself out by time
+               &mdash; which is what carries 1,700+ live events a year. HBO Max&rsquo;s version is
+               confidential; this is the same problem solved again with public data.</p>
+
+            <div class="sched">
+               <div class="sched-tabs" role="group" aria-label="Choose a league">
+                  <button type="button" data-feed="nba" aria-pressed="true">NBA</button>
+                  <button type="button" data-feed="nhl" aria-pressed="false">NHL</button>
+                  <button type="button" data-feed="mlb" aria-pressed="false">MLB</button>
+               </div>
+
+               <div class="sched-grid">
+                  <div class="sched-ruler" id="schedRuler" aria-hidden="true"></div>
+                  <div class="sched-track" id="schedTrack"></div>
+                  <div class="sched-now" id="schedNow" aria-hidden="true"></div>
+               </div>
+
+               <p class="sched-note" id="schedStatus" role="status"></p>
+            </div>
+
+            <ul class="uxe-list">
+               <li><strong>Position comes from time, not order.</strong> Every card is placed by its
+                   start and duration, so the same component renders a feed it has never seen.</li>
+               <li><strong>One component, three feeds.</strong> Switching league swaps the data and
+                   nothing else &mdash; that is the difference between a page and a framework.</li>
+               <li><strong>Keyboard and screen reader first.</strong> Arrow keys move along the rail,
+                   each card announces its time and state, and the now-line is decorative.</li>
+            </ul>
          </section>
 
          <section class="uxe-case-section">
@@ -107,5 +198,103 @@
       <script src="lib/wow/wow.min.js"></script>
       <script src="lib/superfish/superfish.min.js"></script>
       <script src="js/main.js"></script>
+      <script>
+      (function () {
+        var WINDOW_H = 5;
+        var track = document.getElementById("schedTrack");
+        if (!track) return;
+        var ruler  = document.getElementById("schedRuler");
+        var nowEl  = document.getElementById("schedNow");
+        var status = document.getElementById("schedStatus");
+
+        var FEEDS = {
+          nba: [["Denver at Boston",0,2.5],["Phoenix at Miami",1.5,2.5],["Dallas at Chicago",3,2],
+                ["Toronto at Utah",0.5,2.5],["Sacramento at Orlando",2.5,2]],
+          nhl: [["Tampa Bay at Nashville",0.5,2.5],["Seattle at Colorado",2,2.5],
+                ["Boston at Calgary",3,2],["Ottawa at St. Louis",0,2.5]],
+          mlb: [["San Diego at Atlanta",0,3],["Houston at Detroit",1,3],
+                ["Seattle at Baltimore",2,3],["Cubs at Giants",0.5,3]]
+        };
+
+        var base = new Date();
+        base.setMinutes(base.getMinutes() < 30 ? 0 : 30, 0, 0);
+        base.setHours(base.getHours() - 1);
+
+        function clock(d) {
+          var h = d.getHours() % 12 || 12, m = d.getMinutes();
+          return h + ":" + (m < 10 ? "0" : "") + m + (d.getHours() < 12 ? " AM" : " PM");
+        }
+
+        for (var i = 0; i < WINDOW_H; i++) {
+          var s = document.createElement("span");
+          s.textContent = clock(new Date(base.getTime() + i * 3600000));
+          ruler.appendChild(s);
+        }
+
+        var cards = [];
+        function render(key) {
+          track.innerHTML = ""; cards = [];
+          FEEDS[key].forEach(function (ev, row) {
+            var name = ev[0], startH = ev[1], lenH = ev[2];
+            var start = new Date(base.getTime() + startH * 3600000);
+            var end   = new Date(start.getTime() + lenH * 3600000);
+            var now   = new Date();
+            var state = now < start ? "soon" : (now < end ? "live" : "done");
+
+            var r = document.createElement("div"); r.className = "sched-row";
+            var b = document.createElement("button");
+            b.type = "button"; b.className = "sched-ev"; b.setAttribute("data-state", state);
+            b.style.left  = (startH / WINDOW_H * 100) + "%";
+            b.style.width = "calc(" + (lenH / WINDOW_H * 100) + "% - 6px)";
+            b.tabIndex = row === 0 ? 0 : -1;
+            var nb = document.createElement("b"); nb.textContent = name;
+            var ib = document.createElement("i");
+            ib.textContent = state === "live" ? "Live now"
+                           : state === "done" ? "Ended" : clock(start);
+            b.appendChild(nb); b.appendChild(ib);
+            b.setAttribute("aria-label", name + ", " +
+              (state === "live" ? "live now"
+               : state === "done" ? "ended at " + clock(end)
+               : "starts " + clock(start)));
+            b.addEventListener("click", function () {
+              status.textContent = b.getAttribute("aria-label") + ".";
+            });
+            r.appendChild(b); track.appendChild(r); cards.push(b);
+          });
+          place();
+        }
+
+        track.addEventListener("keydown", function (e) {
+          var i = cards.indexOf(document.activeElement);
+          if (i < 0) return;
+          var n = (e.key === "ArrowDown" || e.key === "ArrowRight") ? i + 1
+                : (e.key === "ArrowUp"   || e.key === "ArrowLeft")  ? i - 1
+                : e.key === "Home" ? 0 : e.key === "End" ? cards.length - 1 : -1;
+          if (n < 0 || n >= cards.length) return;
+          e.preventDefault();
+          cards[i].tabIndex = -1; cards[n].tabIndex = 0; cards[n].focus();
+        });
+
+        function place() {
+          var mins = (new Date() - base) / 60000;
+          nowEl.style.left = Math.max(0, Math.min(100, mins / (WINDOW_H * 60) * 100)) + "%";
+        }
+
+        var tabs = document.querySelectorAll(".sched-tabs button");
+        Array.prototype.forEach.call(tabs, function (tab) {
+          tab.addEventListener("click", function () {
+            Array.prototype.forEach.call(tabs, function (o) {
+              o.setAttribute("aria-pressed", String(o === tab));
+            });
+            render(tab.getAttribute("data-feed"));
+            status.textContent = tab.textContent + " schedule loaded, " +
+              FEEDS[tab.getAttribute("data-feed")].length + " events.";
+          });
+        });
+
+        render("nba");
+        setInterval(place, 30000);
+      })();
+      </script>
    </body>
 </html>
