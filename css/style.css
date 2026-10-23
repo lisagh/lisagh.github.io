@@ -2724,3 +2724,80 @@ margin-bottom: 30px;
   .uxe-metrics { gap: 12px 24px; }
   .uxe-metrics dt { font-size: 1.55rem; }
 }
+
+
+/* ---------------------------------------------------------------
+   Hero, inverted.
+
+   The name used to be the loudest thing on the page, but a name is not
+   a claim — nobody cares what she is called until they care what she
+   does, and a recruiter arriving from a resume already has the name.
+   The claim reads first now and the name sits under it as the graphic
+   element it always was.
+
+   The kicker, the location line and an unstated job search were three
+   separate pieces of metadata scattered through the hero. They are one
+   rule-topped strip, which is also where "open to work" finally gets
+   said — the site never said it before.
+   --------------------------------------------------------------- */
+
+.uxe-claim {
+  color: var(--uxe-text);
+  font-family: Montserrat, sans-serif;
+  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1.16;
+  margin: 0 0 26px;
+  max-width: 22ch;
+}
+
+.uxe-facts {
+  border-top: 1px solid var(--uxe-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 38px;
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 15px 0 0;
+}
+
+.uxe-facts li {
+  color: #777;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* The one accent in this viewport. It is the only line on the page
+   that asks the reader to do something. */
+.uxe-facts .uxe-open {
+  color: var(--uxe-accent);
+  font-weight: 700;
+}
+
+@media (max-width: 520px) {
+  .uxe-facts { gap: 7px 22px; }
+}
+
+
+/* The eleven outlined pills were a fourth layer in a hero that already
+   had three. The words all stay; the chrome does not. They now read as
+   a quiet continuation of the facts strip rather than eleven boxes
+   competing with the name above them. */
+.uxe-hero .uxe-tags {
+  gap: 7px 22px;
+  margin-top: 24px;
+}
+
+.uxe-hero .uxe-tags span {
+  border: 0;
+  border-radius: 0;
+  color: #8d8d93;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  padding: 0;
+}
