@@ -114,29 +114,12 @@ a {
   object-position: top;   /* screenshots are framed from the top edge */
 }
 
-.proj-wide {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
-}
-
-.proj-wide .proj-visual {
-  aspect-ratio: auto;
-  border-bottom: 0;
-  border-right: 1px solid var(--uxe-rule);
-}
-
 /* The body is a column so the copy sits optically centred against a
    tall image, and so every card's name/role/description start on the
    same baseline regardless of how many lines the role row takes. */
 .proj-body {
   display: flex;
   flex-direction: column;
-}
-
-.proj-wide .proj-body {
-  justify-content: center;
-  padding: 30px 32px;
 }
 
 /* One label slot per card, always the first line of the body. PawPath
@@ -160,29 +143,11 @@ a {
   color: var(--uxe-text);
 }
 
-/* Stack the featured cards at 900, not 760. Between those two widths
-   they stayed side by side with roughly 390px per column — narrower
-   than the 16:10 screenshots inside them, so object-fit: cover sliced
-   the left and right off the player's keyboard legend. 900 also lines
-   up with where the work entries stack, so the whole page changes
-   layout at one width instead of two. */
-@media (max-width: 900px) {
-  .proj-wide {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .proj-wide .proj-visual {
-    aspect-ratio: 16 / 10;
-    border-bottom: 1px solid var(--uxe-rule);
-    border-right: 0;
-  }
-
-  .proj-wide .proj-body {
-    padding: 18px 20px 22px;
-  }
-}
-
-@media (max-width: 640px) {
+/* Four equal cards instead of two featured plus two. The size
+   difference was carrying no information the content did not already
+   carry, and it put the Red Dot project in the smaller tier. With all
+   four the same, two columns get cramped below 720 rather than 640. */
+@media (max-width: 720px) {
   .proj-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -191,7 +156,7 @@ a {
 .proj-name {
   display: block;
   font-family: Montserrat, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: -0.015em;
   line-height: 1.2;

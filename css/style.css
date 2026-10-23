@@ -1954,14 +1954,19 @@ margin-bottom: 30px;
   text-decoration: none;
 }
 
+/* The company name was 21.6px — smaller than its own statistic below
+   it, so the page ranked a number above the employer it belonged to.
+   At 2.25rem it leads its entry, and past 32px display type needs
+   negative tracking or it reads loose. */
 .uxe-project-copy h3,
 .uxe-project-id h3 {
   color: #000;
   font-family: Montserrat, sans-serif;
-  font-size: 1.35rem;
-  font-weight: 500;
-  line-height: 1.25;
-  margin: 14px 0 8px;
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.12;
+  margin: 14px 0 10px;
   max-width: 520px;
 }
 
@@ -2585,6 +2590,11 @@ margin-bottom: 30px;
 }
 
 @media (max-width: 768px) {
+  .uxe-project-copy h3,
+  .uxe-project-id h3 {
+    font-size: 1.8rem;
+  }
+
   .uxe-hero {
     padding-top: 40px;
     padding-bottom: 52px;
@@ -2679,8 +2689,8 @@ margin-bottom: 30px;
 .uxe-metrics {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 32px;
-  margin: 0 0 16px;
+  gap: 10px 24px;
+  margin: 0 0 18px;
 }
 
 .uxe-metrics div { min-width: 0; }
@@ -2688,7 +2698,7 @@ margin-bottom: 30px;
 .uxe-metrics dt {
   color: var(--uxe-text);
   font-family: Montserrat, sans-serif;
-  font-size: 1.55rem;
+  font-size: 1.9rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -2706,11 +2716,11 @@ margin-bottom: 30px;
   letter-spacing: 0.05em;
   line-height: 1.35;
   margin: 5px 0 0;
-  max-width: 19ch;
+  max-width: 15ch;
   text-transform: uppercase;
 }
 
 @media (max-width: 520px) {
   .uxe-metrics { gap: 12px 24px; }
-  .uxe-metrics dt { font-size: 1.35rem; }
+  .uxe-metrics dt { font-size: 1.55rem; }
 }
