@@ -2744,12 +2744,12 @@ margin-bottom: 30px;
 .uxe-claim {
   color: var(--uxe-text);
   font-family: Montserrat, sans-serif;
-  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+  font-size: clamp(1.42rem, 3.4vw, 2.75rem);
   font-weight: 600;
   letter-spacing: -0.022em;
   line-height: 1.16;
   margin: 0 0 26px;
-  max-width: 27ch;
+  max-width: 38ch;
 }
 
 .uxe-facts {
