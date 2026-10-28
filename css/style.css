@@ -2771,11 +2771,12 @@ margin-bottom: 30px;
   text-transform: uppercase;
 }
 
-/* The one accent in this viewport. It is the only line on the page
-   that asks the reader to do something. */
-.uxe-facts .uxe-open {
+/* The two accent uses in this viewport. Eleven skills read as one
+   undifferentiated list; these are the two a design-systems screen is
+   actually filtering on, so they carry the colour the rest do not. */
+.uxe-hero .uxe-tags .uxe-tag-key {
   color: var(--uxe-accent);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 @media (max-width: 520px) {
