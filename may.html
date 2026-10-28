@@ -192,7 +192,7 @@
       .topnav nav a:hover {
         color: var(--fg);
       }
-      @media (max-width: 760px) {
+      @media (max-width: 940px) {
         .topnav nav {
           display: none;
         }
@@ -669,7 +669,7 @@
       .spec { margin-top: 22px; }
       .spec-row {
         align-items: flex-end; border-top: 1px solid var(--border); display: grid;
-        gap: 18px 28px; grid-template-columns: 160px 1fr; padding: 20px 0;
+        gap: 18px 28px; grid-template-columns: 160px minmax(0, 1fr); padding: 20px 0;
       }
       .spec-row:last-of-type { border-bottom: 1px solid var(--border); }
       .spec-row > dt { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
@@ -803,6 +803,7 @@
       @media (max-width: 700px) {
         .may-rolestrip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
         .may-nextcase-name { font-size: 22px; }
+        .spec-row { grid-template-columns: minmax(0, 1fr); gap: 12px; }
       }
     </style>
   </head>
