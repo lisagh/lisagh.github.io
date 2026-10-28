@@ -739,6 +739,71 @@
           opacity: 0.6;
         }
       }
+    
+      /* --- shared case-page frame: breadcrumb, role strip, next case --- */
+      .may-crumb {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--muted);
+        margin: 0 0 18px;
+        text-transform: uppercase;
+      }
+      .may-crumb a:hover { color: var(--accent-ink); }
+      .may-crumb span { margin: 0 8px; opacity: .5; }
+
+      .may-rolestrip {
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        gap: 22px 40px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin: 38px 0 0;
+        padding: 20px 0;
+      }
+      .may-rolestrip dt {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        margin: 0 0 8px;
+      }
+      .may-rolestrip dd {
+        font-family: var(--font-body);
+        font-size: 15px;
+        line-height: 1.55;
+        color: var(--fg);
+        margin: 0;
+      }
+
+      .may-nextcase {
+        align-items: baseline;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 20px;
+        justify-content: space-between;
+        margin-top: 10px;
+        padding-top: 24px;
+      }
+      .may-nextcase-label {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .may-nextcase-name {
+        font-family: var(--font-display);
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        transition: color 160ms ease;
+      }
+      .may-nextcase:hover .may-nextcase-name { color: var(--accent-ink); }
+
+      @media (max-width: 700px) {
+        .may-rolestrip { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+        .may-nextcase-name { font-size: 22px; }
+      }
     </style>
   </head>
   <body>
@@ -762,6 +827,7 @@
     <main>
       <section class="section" data-od-id="hero">
         <div class="container">
+          <p class="may-crumb"><a href="index.html">Home</a><span>/</span>May</p>
           <p class="eyebrow">MAY · DESIGN SYSTEM</p>
           <h1>A design system a model can build with.</h1>
           <p class="lead" style="margin-top: 18px">
@@ -775,6 +841,21 @@
             Every animation below is live — no video, no GIF. Nothing moves except transform and
             opacity, and everything stops under <span class="meta">prefers-reduced-motion</span>.
           </p>
+
+          <dl class="may-rolestrip">
+            <div>
+              <dt>What I did</dt>
+              <dd>Design System &middot; Component API &middot; Interaction Design &middot; Frontend &middot; Brand</dd>
+            </div>
+            <div>
+              <dt>Team</dt>
+              <dd>Design lead at Zhenfy, with the founder and the engineering team</dd>
+            </div>
+            <div>
+              <dt>The set</dt>
+              <dd>17 components, 48 tokens, 2 layout templates</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
@@ -1438,6 +1519,15 @@
             text already says. Put <span class="meta">aria-live="polite"</span> on the status line
             instead so a screen reader hears the state change once.
           </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <a class="may-nextcase" href="hbo-max.html">
+            <span class="may-nextcase-label">Next case</span>
+            <span class="may-nextcase-name">HBO Max &rarr;</span>
+          </a>
         </div>
       </section>
     </main>

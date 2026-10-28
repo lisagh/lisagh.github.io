@@ -2802,3 +2802,86 @@ margin-bottom: 30px;
   letter-spacing: 0.055em;
   padding: 0;
 }
+
+/* ------------------------------------------------------------------
+   Case-page shared skeleton
+   Every case page runs: hero / role strip / try it / context /
+   what I built / impact / note / next case.
+   ------------------------------------------------------------------ */
+
+.uxe-rolestrip {
+  border-bottom: 1px solid var(--uxe-rule);
+  border-top: 1px solid var(--uxe-rule);
+  display: grid;
+  gap: 22px 40px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 38px 0 0;
+  padding: 20px 0;
+}
+
+.uxe-rolestrip dt {
+  color: #8d8d93;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.uxe-rolestrip dd {
+  color: var(--uxe-text);
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.93rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.uxe-casenote {
+  border-left: 2px solid var(--uxe-rule);
+  color: #777;
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 64ch;
+  padding: 2px 0 2px 16px;
+}
+
+.uxe-nextcase {
+  align-items: baseline;
+  border-top: 1px solid var(--uxe-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  justify-content: space-between;
+  margin-top: 56px;
+  padding-top: 24px;
+  text-decoration: none;
+}
+
+.uxe-nextcase-label {
+  color: #8d8d93;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.uxe-nextcase-name {
+  color: var(--uxe-text);
+  font-family: Montserrat, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  transition: color 160ms ease;
+}
+
+.uxe-nextcase:hover .uxe-nextcase-name,
+.uxe-nextcase:focus-visible .uxe-nextcase-name { color: var(--uxe-accent); }
+
+@media (max-width: 700px) {
+  .uxe-rolestrip { gap: 18px; grid-template-columns: minmax(0, 1fr); }
+  .uxe-nextcase-name { font-size: 1.4rem; }
+}
